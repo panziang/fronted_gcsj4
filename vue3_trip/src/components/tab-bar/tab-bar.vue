@@ -1,54 +1,44 @@
 <template>
     <div class="tab-bar">
-        <div class="tab-bar-item">
-            <img src="@/assets/img/tabbar/tab_home.png" alt="">
-            <span class="text">首页</span>
-        </div>
-        <div class="tab-bar-item">
-            <img src="@/assets/img/tabbar/tab_favor.png" alt="">
-            <span class="text">收藏</span>
-        </div>
-        <div class="tab-bar-item">
-            <img src="@/assets/img/tabbar/tab_order.png" alt="">
-            <span class="text">订单</span>
-        </div>
-        <div class="tab-bar-item">
-            <img src="@/assets/img/tabbar/tab_message.png" alt="">
-            <span class="text">消息</span>
-        </div>
+        <van-tabbar v-model="currentIndex" active-color="#ff9854">
+            <template v-for="(item, index) in tabbarData" :key="index">
+                <van-tabbar-item :to="item.path">
+                    <template #default>
+                        <span>{{ item.text }}</span>
+                    </template>
+                    <template #icon>
+                        <img v-if="currentIndex !== index" :src="getAssetURL(item.image)" alt="">
+                        <img v-else :src="getAssetURL(item.imgActive)" alt="">
+                    </template>
+                </van-tabbar-item>
+            </template>
+        </van-tabbar>
     </div>
 </template>
 
 <script setup>
+    //获取数据
+    import tabbarData from "@/assets/data/tabbar"
+    //动态加载图片路径方法
+    import { getAssetURL } from "@/utils/load_assets"
+    import { ref } from "vue"
+
+    const currentIndex = ref(0)
 
 </script>
 
 <style lang="less" scoped>
 .tab-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50px;
-    display: flex;
+    //局部修改，局部定义一个变量，只针对于tab-bar下的变量才生效
+    // --van-tabbar-item-icon-size: 30px !important; 
 
-    border-top: 1px solid #f3f3f3;
-
-    .tab-bar-item {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+    // :deep(.van-tabbar-item__icon) {
+    //     font-size: 50px;
+    // }
 
     img {
-        width: 36px;
+        height: 30px;
     }
 
-    .text {
-        font-size: 12px;
-        margin-top: 2px;
-    }
 }
 </style>

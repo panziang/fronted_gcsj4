@@ -8,8 +8,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.3.4",
+    "dayjs": "^1.11.7",
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.33",
+    "vant": "^3.6.11",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
@@ -17,6 +20,8 @@
     "@vitejs/plugin-vue": "^4.0.0",
     "less": "^4.1.3",
     "less-loader": "^11.1.0",
+    "prettier": "2.8.4",
+    "unplugin-vue-components": "^0.24.1",
     "vite": "^4.1.4"
   }
 }

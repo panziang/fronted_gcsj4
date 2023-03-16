@@ -1,3 +1,25 @@
+:root {
+  --primary-color: #ff9854;
+  --line-color: #faf8f9;
+
+  /*全局修改  */
+  /* --van-tabbar-item-icon-size: 30px !important; */
+  /* search搜索框样式 */
+  --van-search-left-icon-color: var(--primary-color) !important
+}
+
 body {
-    font-size: 14px;
+  font-size: 14px;
+}
+
+.top-page {
+  position: relative;
+  height: 100vh;
+  z-index: 9;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+.bottom-gray-line {
+  border-bottom: 1px solid var(--line-color);
 }

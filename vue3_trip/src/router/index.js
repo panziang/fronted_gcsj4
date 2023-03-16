@@ -7,8 +7,6 @@ const router = createRouter({
             path: "/",
             redirect: "/home",
         },
-
-        
         {
             path: "/home",
             component: () => import("@/views/home/home.vue")
@@ -24,6 +22,13 @@ const router = createRouter({
         {
             path: "/favor",
             component: () => import("@/views/favor/favor.vue")
+        },
+        {
+            path: "/city",
+            component: () => import("@/views/city/city.vue"),
+            // meta:{
+            //     hideTabBar:true
+            // }
         },
     ]
 })
