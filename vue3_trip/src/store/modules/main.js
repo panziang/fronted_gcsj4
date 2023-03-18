@@ -10,7 +10,7 @@ const useMainStore= defineStore("main", {
     endDate: endDate,
     
     //控制loading是否开启
-    isLoading:true
+    isLoading:false
   })
 })
 export default useMainStore

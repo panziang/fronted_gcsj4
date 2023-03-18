@@ -5,12 +5,12 @@
     "module": "esnext",
     "baseUrl": "./",
     "moduleResolution": "node",
+    "jsx": "preserve",
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ] 
     },
-    "jsx": "preserve",
     "lib": [
       "esnext",
       "dom",

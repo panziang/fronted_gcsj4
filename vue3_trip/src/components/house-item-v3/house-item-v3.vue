@@ -24,12 +24,14 @@
 </template>
 
 <script setup>
-  defineProps({
+  const props = defineProps({
     itemData: {
       type: Object,
       default: () => ({})
     }
   })
+
+
 </script>
 
 <style lang="less" scoped>

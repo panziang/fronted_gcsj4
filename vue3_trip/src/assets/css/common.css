@@ -6,6 +6,7 @@
   /*全局修改  */
   /* --van-tabbar-item-icon-size: 30px !important; */
   /* search搜索框样式 */
+  --van-primary-color: var(--primary-color);
   --van-search-left-icon-color: var(--primary-color) !important
 }
 
@@ -13,6 +14,7 @@ body {
   font-size: 14px;
 }
 
+/*使页面样式占满屏幕，隐藏下方导航栏 */
 .top-page {
   position: relative;
   height: 100vh;
@@ -23,4 +25,11 @@ body {
 
 .bottom-gray-line {
   border-bottom: 1px solid var(--line-color);
+}
+
+.icon_check {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: url(../images/detail/icon_check.png) 0 0 / 100% 100%;
 }
