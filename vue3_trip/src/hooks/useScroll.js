@@ -2,7 +2,9 @@ import { ref, onMounted, onUnmounted } from "vue"
 
 import {throttle} from "underscore"
 
-export default function useScroll () {
+//传入的ref是谁，就监听谁，否则只能监听window的滚动
+export default function useScroll (elRef) {
+  let el = window
   //定义一个变量,判断是否达到底部
   const isReachBottom = ref(false)
 
@@ -14,9 +16,16 @@ export default function useScroll () {
   //利用throttle实现节流
   const scrollListenerHandler = throttle(() => {
     // console.log(document.documentElement.scrollTop);
-    clientHeight.value = document.documentElement.clientHeight
-    scrollTop.value = document.documentElement.scrollTop
-    scrollHeight.value = document.documentElement.scrollHeight
+    //判断el是不是window
+    if (el === window) {
+      clientHeight.value = document.documentElement.clientHeight
+      scrollTop.value = document.documentElement.scrollTop
+      scrollHeight.value = document.documentElement.scrollHeight
+    } else {
+      clientHeight.value = el.clientHeight
+      scrollTop.value = el.scrollTop
+      scrollHeight.value=el.scrollHeight
+    }
     if (clientHeight.value + scrollTop.value >= scrollHeight.value) {
       // homeStore.fetchHouseList()
       //将isReachBottom这个变量的值改为true，可以让调用者知道已经到达底部
@@ -26,12 +35,15 @@ export default function useScroll () {
   
   //添加监听
   onMounted(() => {
-    window.addEventListener("scroll", scrollListenerHandler)
+    if (elRef) {
+      el = elRef.value
+    }
+    el.addEventListener("scroll", scrollListenerHandler)
   })
   
   //离开页面，移除监听
   onUnmounted(() => {
-    window.removeEventListener("scroll", scrollListenerHandler)
+    el.removeEventListener("scroll", scrollListenerHandler)
   })
 
   return { isReachBottom, scrollTop, clientHeight, scrollHeight }
