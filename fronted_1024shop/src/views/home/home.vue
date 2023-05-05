@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <home-nav-bar />
     <div class="banner">
       <img src="@/assets/img/home/banner.webp" alt="">
@@ -13,13 +13,17 @@
   </div>
 </template>
 
+<script>
+  //给APP.vue里的keepalive使用，定义路由name
+  export default { name: "home" }
+</script>
 <script setup>
   import useHomeStore from '@/store/modules/home';
   import homeNavBar from './cpns/home-nav-bar.vue';
   import homeSearchBox from './cpns/home-search-box.vue';
   import homeCategories from './cpns/home-categories.vue';
   import homeContent from './cpns/home-content.vue';
-  import { computed, ref, watch } from 'vue';
+  import { computed, ref, watch, onActivated } from 'vue';
   import useScroll from "@/hooks/useScroll"
   import searchBar from '@/components/search-bar/search-bar.vue';
 
@@ -32,7 +36,8 @@
   //获取热门精选里的房屋信息
   homeStore.fetchHouseList()
 
-  const { isReachBottom, scrollTop } = useScroll()
+  const homeRef = ref()
+  const { isReachBottom, scrollTop } = useScroll(homeRef)
   //从useScroll中取值isReachBottom，判断是否到达底部，然后发送网络请求
   watch(isReachBottom, (newValue) => {
     if (newValue) {
@@ -53,21 +58,23 @@
 
   //方法二：computed
   const isShowSearchBar = computed(() => {
-    return scrollTop.value >= 350
+    return scrollTop.value >= 360
   })
 
+  //跳转回home时，保留原来的位置
+  onActivated(() => {
+    homeRef.value?.scrollTo({
+      top: scrollTop.value
+    })
+  })
 </script>
 
 <style lang="less" scoped>
 .home {
-  // height: 100vh;
-  // overflow-y: auto;
-  // box-sizing: border-box;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
   padding-bottom: 60px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .banner {
