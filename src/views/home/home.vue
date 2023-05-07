@@ -4,8 +4,8 @@
     <div class="banner">
       <img src="@/assets/img/home/banner.webp" alt="">
     </div>
-    <home-search-box />
-    <home-categories />
+    <!-- <home-search-box /> -->
+    <!-- <home-categories /> -->
     <div class="search-bar" v-show="isShowSearchBar">
       <search-bar />
     </div>

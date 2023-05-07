@@ -6,7 +6,7 @@ const tabbarData = [
         path: "/home"
     },
     {
-        text: "收藏",
+        text: "购物车",
         image: "tabbar/tab_favor.png",
         imgActive: "tabbar/tab_favor_active.png",
         path: "/favor"
@@ -18,10 +18,10 @@ const tabbarData = [
         path: "/order"
     },
     {
-        text: "消息",
+        text: "我的",
         image: "tabbar/tab_message.png",
         imgActive: "tabbar/tab_message.png",
-        path: "/message"
+        path: "/user"
     },
 ]
 export default tabbarData

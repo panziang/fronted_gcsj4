@@ -1,7 +1,7 @@
 <template>
-    <div class="nav-bar">
-        <div class="title">我的旅途</div>
-    </div>
+  <div class="nav-bar">
+    <div class="title">1024shop</div>
+  </div>
 </template>
 
 <script setup>
@@ -10,16 +10,16 @@
 
 <style lang="less" scoped>
 .nav-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 46px;
-    border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 46px;
+  border-bottom: 1px solid #f2f2f2;
 
-    .title {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--primary-color);
-    }
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-color);
+  }
 }
 </style>

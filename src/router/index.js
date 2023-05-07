@@ -16,11 +16,11 @@ const router = createRouter({
             component: () => import("@/views/order/order.vue")
         },
         {
-            path: "/message",
-          component: () => import("@/views/message/message.vue"),
-            meta:{
-                hideTabBar:true
-            }
+            path: "/user",
+          component: () => import("@/views/user/user-info.vue"),
+            // meta:{
+            //     hideTabBar:true
+            // }
         },
         {
             path: "/favor",
@@ -43,6 +43,14 @@ const router = createRouter({
       {
         path: "/detail/:id",
         component: () => import("@/views/detail/detail.vue")
+      },
+      {
+        path: "/sign-in",
+        component: () => import("@/views/user/sign-in.vue")
+      },
+      {
+        path: "/sign-up",
+        component: () => import("@/views/user/sign-up.vue")
       },
     ]
 })
