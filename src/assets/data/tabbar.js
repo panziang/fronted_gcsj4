@@ -9,7 +9,7 @@ const tabbarData = [
         text: "购物车",
         image: "tabbar/tab_favor.png",
         imgActive: "tabbar/tab_favor_active.png",
-        path: "/favor"
+        path: "/cart"
     },
     {
         text: "订单",

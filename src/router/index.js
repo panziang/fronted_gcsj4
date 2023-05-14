@@ -23,8 +23,8 @@ const router = createRouter({
             // }
         },
         {
-            path: "/favor",
-            component: () => import("@/views/favor/favor.vue")
+            path: "/cart",
+            component: () => import("@/views/cart/cart.vue")
         },
         {
             path: "/city",
@@ -52,6 +52,20 @@ const router = createRouter({
         path: "/sign-up",
         component: () => import("@/views/user/sign-up.vue")
       },
+      {
+        path: "/address-list",
+        component: () => import("@/views/user/address-list.vue")
+      },
+      {
+        path: "/address-edit",
+        component: () => import("@/views/user/address-edit.vue")
+      },
+      {
+        path: "/coupon",
+        component: () => import("@/views/user/coupon.vue")
+      },
+
+      
     ]
 })
 

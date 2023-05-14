@@ -5,10 +5,12 @@
     <div class="form-content">
       <van-form @submit="onSubmit">
         <van-cell-group inset>
-          <van-field v-model="username" name="validateName" label="用户名" placeholder="用户名"
-            :rules="[{ validator: validateName, message: '用户名首位必须为字母且长度在3~16之间！' }]" />
-          <van-field v-model="password" type="password" name="validatePwd" label="密码" placeholder="密码"
-            :rules="[{ validator: validatePwd, message: '密码必须由大小写字母和数字组成且长度在6~16之间！' }]" />
+          <van-field v-model="email" name="validateName" label="邮箱" placeholder="请输入邮箱号"
+            :rules="[{ validator: validateEmail, message: '邮箱格式不正确！' }]" />
+          <!-- <van-field v-model="password" type="password" name="validatePwd" label="密码" placeholder="密码"
+            :rules="[{ validator: validatePwd, message: '密码必须由大小写字母和数字组成且长度在6~16之间！' }]" /> -->
+          <van-field v-model="password" type="password" name="密码" label="密码" placeholder="密码"
+            :rules="[{ required: true, message: '请填写密码' }]" />
         </van-cell-group>
         <div style="margin: 16px;">
           <van-button round block type="primary" native-type="submit">
@@ -27,19 +29,51 @@
   import { useRouter } from 'vue-router';
   import homeNavBar from '../home/cpns/home-nav-bar.vue';
   import { ref } from 'vue';
-  const username = ref('');
+  import { getSignInByPwd } from '../../request/userApi'
+
+  const email = ref('');
   const password = ref('');
 
-  const validateName = (val) => /^[a-zA-Z][a-zA-Z0-9]{2,15}$/.test(val)
+  const validateEmail = (val) => /^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$/.test(val)
   const validatePwd = (val) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$/.test(val)
 
   const router = useRouter()
   const signUpClick = () => {
     router.push('/sign-up')
   }
+
+
   const onSubmit = (values) => {
-    console.log("username", username.value, "password", password.value);
+    console.log("email", email.value, "password", password.value);
     console.log('submit', values);
+    getSignInByPwd(
+      {
+        mail: email.value,
+        pwd: password.value,
+      },
+      (status, res, data) => {
+        console.log('status: ', status)
+        console.log('res: ', res)
+        console.log('data: ', data)
+
+        if (data.code == '0') {
+          // PromptMessage.messageSuccess('登录成功')
+          console.log("登录成功");
+
+
+        } else {
+          // PromptMessage.messageBoxError('登录失败', data.msg)
+          console.log("登录失败");
+        }
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("登录失败");
+      }
+    )
   };
 </script>
 

@@ -5,5 +5,6 @@ import pinia from './store'
 
 import "normalize.css"
 import "./assets/css/index.css"
+import 'vant/es/toast/style';
 
 createApp(App).use(router).use(pinia).mount('#app')

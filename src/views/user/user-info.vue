@@ -17,7 +17,7 @@
     </div>
     <div class="content">
       <div class="card">
-        <div class="card-box">
+        <div class="card-box" @click="cartClick">
           <div class="num">
             <span>
               <p>12</p>
@@ -28,7 +28,7 @@
             <van-icon name="cart" />
           </div>
         </div>
-        <div class="card-box">
+        <div class="card-box" @click="couponClick">
           <div class="num">
             <span>
               <p>3</p>
@@ -42,7 +42,7 @@
       </div>
       <div class="list">
         <van-cell-group>
-          <van-cell title="单元格" icon="location-o" is-link />
+          <van-cell title="地址信息" icon="location-o" is-link @click="addressClick" />
           <van-cell title="单元格" icon="location-o" is-link />
           <van-cell title="单元格" icon="location-o" is-link />
           <van-cell title="单元格" icon="location-o" is-link />
@@ -58,6 +58,22 @@
 </template>
 
 <script setup>
+  import { ref } from 'vue'
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter()
+  const cartClick = () => {
+    router.push('/cart');
+  }
+
+  const couponClick = () => {
+    router.push('/coupon')
+  }
+
+  const addressClick = () => {
+    router.push('/address-list')
+  }
+
 
 </script>
 

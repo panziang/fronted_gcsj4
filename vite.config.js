@@ -11,9 +11,20 @@ export default defineConfig({
     Components({
       resolvers: [VantResolver()],
     }),],
+    server: { //同plugins同级
+      port: 5173, //本地端口号
+      proxy: { //配置代理服务器
+        "/user-server": {
+          target: "http://localhost:9000",    //目标url
+          changeOrigin: true,    //允许跨域
+          rewrite: (path) => path.replace(/^\/api/, ""),     //重写路径,替换/api
+        },
+      },
+    },
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
 })

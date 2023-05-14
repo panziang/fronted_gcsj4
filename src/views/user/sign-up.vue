@@ -20,7 +20,11 @@
           </van-field>
 
           <van-field v-model="code" name="code" label="验证码" placeholder="请输入验证码"
-            :rules="[{ required: true, message: '验证码错误' }]" />
+            :rules="[{ required: true, message: '验证码错误' }]">
+            <template #button>
+              <van-button size="small" type="primary" @click="getKaptcha">发送验证码</van-button>
+            </template></van-field>
+          <van-image width="200" height="100" :src=kaptcha />
         </van-cell-group>
         <div style="margin: 16px;">
           <van-button round block type="primary" native-type="submit">
@@ -39,6 +43,8 @@
   import { useRouter } from 'vue-router';
   import homeNavBar from '../home/cpns/home-nav-bar.vue';
   import { ref } from 'vue';
+  import { sendKaptcha } from '../../request/userApi'
+
   const username = ref('');
   const password = ref('');
   const sex = ref('')
@@ -51,6 +57,30 @@
   const signInClick = () => {
     router.push('/sign-in')
   }
+
+  //获取图形验证码
+  const kaptcha = ref({})
+  const getKaptcha = () => {
+    sendKaptcha(
+      {},
+      (status, res, data) => {
+        console.log('status: ', status)
+        console.log('res: ', res)
+        console.log('data: ', data)
+        // const imgurl = URL.createObjectURL(data)
+        kaptcha.value = URL.createObjectURL(data)
+
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("发送失败");
+      }
+    )
+  }
+
   const onSubmit = (values) => {
     console.log("username", username.value, "password", password.value);
     console.log('submit', values);
