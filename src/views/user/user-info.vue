@@ -2,12 +2,11 @@
   <div class="user-info">
     <!-- <h2>user-info</h2> -->
     <div class="header">
-      <van-image round width="4rem" height="4rem" fit="cover"
-        src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg" />
+      <van-image round width="4rem" height="4rem" fit="cover" :src=userInfo.head_img />
       <div class="info-content">
-        <h2>duck不必</h2>
+        <h2>{{ userInfo.name }}</h2>
         <span>
-          <p>个性签名：一给我哩giaogiao</p>
+          <p>个性签名：{{ userInfo.slogan }}</p>
         </span>
       </div>
       <div class="edit">
@@ -60,8 +59,17 @@
 <script setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router';
+  import { getUserDetail } from '../../request/userApi'
+  import { onMounted } from 'vue';
+  import { reactive } from 'vue';
 
   const router = useRouter()
+
+  const userInfo = reactive({
+    head_img: '',
+    name: '',
+    slogan: ''
+  })
   const cartClick = () => {
     router.push('/cart');
   }
@@ -73,6 +81,42 @@
   const addressClick = () => {
     router.push('/address-list')
   }
+
+  const getUserInfo = () => {
+    getUserDetail(
+      {
+
+      },
+      (status, res, data) => {
+        console.log('status: ', status)
+        console.log('res: ', res)
+        console.log('data: ', data)
+
+        if (data.code == '0') {
+          // PromptMessage.messageSuccess('登录成功')
+          console.log("获取用户信息成功");
+          userInfo.head_img = data.data.head_img
+          userInfo.name = data.data.name
+          userInfo.slogan = data.data.slogan
+
+        } else {
+          // PromptMessage.messageBoxError('登录失败', data.msg)
+          console.log("获取用户信息失败");
+        }
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("登录失败");
+      }
+    )
+  }
+
+  onMounted(() => {
+    getUserInfo()
+  })
 
 
 </script>

@@ -152,7 +152,7 @@ const sendRequest = (url, method, param, config, successResponse, errorResponse)
     responseType: 'json',
     // 设置http响应内容的最大长度
     maxContentLength: 1000 * 5,
-    Authorization:localStorage.getItem("myToken") || ""
+    'token': localStorage.getItem("1024token") || "",
   }
 
   // 扩展配置
@@ -196,7 +196,10 @@ const sendRequest = (url, method, param, config, successResponse, errorResponse)
 const requestGet = (url, param, baseURL, successResponse, errorResponse) => {
   const config = {
     baseURL: baseURL,
-    responseType: 'blob',
+    responseType: url=='/api/notify/v1/get_kaptcha'? 'blob': 'json',
+    headers: {
+      'token': localStorage.getItem("1024token") || "",
+    },
   
   }
   // console.log("config",config);

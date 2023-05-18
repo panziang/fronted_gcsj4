@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import hyRequest from "@/service/request/index"
-import {getHomeHotSuggests,getHomeCategories,getHomeHouseList} from "@/service"
+import { getHomeHotSuggests, getHomeCategories, getHomeHouseList } from "@/service"
+import {getProductList} from '../../request/home'
 const useHomeStore = defineStore("home", {
   state: () => ({
     hotSuggests: [],

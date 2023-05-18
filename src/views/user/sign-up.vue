@@ -70,7 +70,6 @@
         // const imgurl = URL.createObjectURL(data)
         kaptcha.value = URL.createObjectURL(data)
 
-
       },
       (status, error, msg) => {
         console.log('status: ', status)
@@ -79,6 +78,7 @@
         console.log("发送失败");
       }
     )
+
   }
 
   const onSubmit = (values) => {

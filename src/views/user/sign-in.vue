@@ -59,7 +59,8 @@
         if (data.code == '0') {
           // PromptMessage.messageSuccess('登录成功')
           console.log("登录成功");
-
+          localStorage.setItem("1024token", data.data)
+          router.push('/home')
 
         } else {
           // PromptMessage.messageBoxError('登录失败', data.msg)

@@ -15,8 +15,10 @@
   import { useRoute } from 'vue-router';
   import tabBar from './components/tab-bar/tab-bar.vue';
   import loading from './components/loading/loading.vue';
+  import { ref } from 'vue';
 
   const route = useRoute()
+  const active = ref(0)
 </script>
 
 <style scoped></style>

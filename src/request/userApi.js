@@ -1,6 +1,7 @@
 /**
  * 首页数据请求api
  */
+import axios from 'axios'
 import {requestPost,requestGet } from './request'
 
 // const apiBaseURL = import.meta.env.VITE_API_BASE_URL || null
@@ -20,12 +21,18 @@ const apiBaseURL = '/user-server'
 //获取图形验证码
 export function sendKaptcha(param, successResponse, errorResponse) {
   requestGet('/api/notify/v1/get_kaptcha', param, apiBaseURL, successResponse, errorResponse)
+ 
 }
 
 
 //密码登录
 export function getSignInByPwd(param, successResponse, errorResponse) {
   requestPost('/api/user/v1/login_by_password', param, apiBaseURL, successResponse, errorResponse)
+}
+
+//获取用户详情信息
+export function getUserDetail(param, successResponse, errorResponse) {
+  requestGet('/api/user/v1/detail', param, apiBaseURL, successResponse, errorResponse)
 }
 
 //注册
@@ -42,6 +49,7 @@ export function getSignInByPwd(param, successResponse, errorResponse) {
 // export function getSignInByPhone(param, successResponse, errorResponse) {
 //   requestPost('/loginByPhone', param, apiBaseURL, successResponse, errorResponse)
 // }
+
 
 
 

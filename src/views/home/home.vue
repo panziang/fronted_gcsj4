@@ -2,10 +2,13 @@
   <div class="home" ref="homeRef">
     <home-nav-bar />
     <div class="banner">
-      <img src="@/assets/img/home/banner.webp" alt="">
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="item in swpierData" :key="item.id">
+          <img :src="item.img" alt="">
+        </van-swipe-item>
+
+      </van-swipe>
     </div>
-    <!-- <home-search-box /> -->
-    <!-- <home-categories /> -->
     <div class="search-bar" v-show="isShowSearchBar">
       <search-bar />
     </div>
@@ -18,26 +21,44 @@
   export default { name: "home" }
 </script>
 <script setup>
-  import useHomeStore from '@/store/modules/home';
   import homeNavBar from './cpns/home-nav-bar.vue';
-  import homeSearchBox from './cpns/home-search-box.vue';
-  import homeCategories from './cpns/home-categories.vue';
   import homeContent from './cpns/home-content.vue';
   import { computed, ref, watch, onActivated } from 'vue';
   import useScroll from "@/hooks/useScroll"
   import searchBar from '@/components/search-bar/search-bar.vue';
+  import { getSwiperList } from '@/request/home'
+  import { onMounted } from 'vue';
 
-  //发送网络请求
-  const homeStore = useHomeStore()
-  //获取热门建议
-  homeStore.fetchHotSuggestsData()
-  //获取房屋分类
-  homeStore.fetchHomeCategories()
-  //获取热门精选里的房屋信息
-  homeStore.fetchHouseList()
 
   const homeRef = ref()
   const { isReachBottom, scrollTop } = useScroll(homeRef)
+
+  const swpierData = ref([])
+  const getSwiper = () => {
+    getSwiperList(
+      {},
+      (status, res, data) => {
+        console.log('status: ', status)
+        console.log('res: ', res)
+        console.log('data: ', data)
+        // const imgurl = URL.createObjectURL(data)
+        swpierData.value = data.data
+        console.log("swpierData", swpierData.value);
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("获取失败");
+      }
+    )
+  }
+
+  onMounted(() => {
+    getSwiper()
+  })
+
   //从useScroll中取值isReachBottom，判断是否到达底部，然后发送网络请求
   watch(isReachBottom, (newValue) => {
     if (newValue) {
@@ -78,10 +99,15 @@
 }
 
 .banner {
-  img {
-    width: 100%;
-    // height: 100px;
+  .my-swipe {
+    .van-swipe-item {
+      img {
+        height: 180px;
+        width: 100%;
+      }
+    }
   }
+
 }
 
 .search-bar {

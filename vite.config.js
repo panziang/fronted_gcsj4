@@ -19,6 +19,11 @@ export default defineConfig({
           changeOrigin: true,    //允许跨域
           rewrite: (path) => path.replace(/^\/api/, ""),     //重写路径,替换/api
         },
+        "/product-server": {
+          target: "http://localhost:9000",    //目标url
+          changeOrigin: true,    //允许跨域
+          rewrite: (path) => path.replace(/^\/api/, ""),     //重写路径,替换/api
+        },
       },
     },
 
