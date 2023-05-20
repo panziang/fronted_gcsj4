@@ -196,11 +196,11 @@ const sendRequest = (url, method, param, config, successResponse, errorResponse)
 const requestGet = (url, param, baseURL, successResponse, errorResponse) => {
   const config = {
     baseURL: baseURL,
-    responseType: url=='/api/notify/v1/get_kaptcha'? 'blob': 'json',
+    responseType: url == '/api/notify/v1/get_kaptcha' ? 'blob' : 'json',
     headers: {
       'token': localStorage.getItem("1024token") || "",
     },
-  
+
   }
   // console.log("config",config);
   return sendRequest(url, 'GET', param, config, successResponse, errorResponse)
@@ -221,7 +221,7 @@ const requestPost = (url, param, baseURL, successResponse, errorResponse) => {
     headers: {
       'Content-Type': 'application/json',
       // 'Content-Type': 'text/plain'
-      'Authorization':localStorage.getItem("myToken") || ""
+      'token': localStorage.getItem("1024token") || "",
     },
     isQSStringify: false
   }

@@ -23,8 +23,8 @@
     </div>
     <van-action-bar placeholder>
       <van-action-bar-icon icon="chat-o" text="客服" @click="onClickIcon" />
-      <van-action-bar-icon icon="cart-o" text="购物车" @click="onClickIcon" />
-      <van-action-bar-button type="warning" text="加入购物车" />
+      <van-action-bar-icon icon="cart-o" text="购物车" @click="onClickCart" />
+      <van-action-bar-button type="warning" text="加入购物车" @click="addProduct()" />
       <van-action-bar-button type="danger" text="立即购买" @click="onClickButton" />
     </van-action-bar>
   </div>
@@ -32,17 +32,22 @@
 
 <script setup>
   import { ref } from 'vue';
-  import { getProductDetail } from '@/request/product'
+  import { getProductDetail, getAddToCart } from '@/request/product'
   import { onMounted } from 'vue';
-  import { useRoute } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
+  import { Toast } from 'vant';
 
   const route = useRoute()
+  const router = useRouter()
   const productId = route.params.id;
   const onClickLeft = () => {
     history.back();
   }
   const onClickIcon = () => Toast('点击图标');
   const onClickButton = () => Toast('点击按钮');
+  const onClickCart = () => {
+    router.push('/cart')
+  }
 
   const productData = ref({})
   const getProductDetailData = () => {
@@ -71,6 +76,33 @@
         console.log('error: ', error)
         console.log('msg: ', msg)
         console.log("获取商品信息失败");
+      }
+    )
+  }
+  //添加商品到购物车
+  const addProduct = () => {
+    getAddToCart(
+      {
+        product_id: productId,
+        buy_num: 1
+      },
+      (status, res, data) => {
+        console.log('status: ', status)
+        console.log('res: ', res)
+        console.log('data: ', data)
+
+        if (data.code == '0') {
+          console.log("添加成功");
+          Toast.success('添加成功');
+        } else {
+          console.log("添加失败");
+        }
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("添加失败");
       }
     )
   }
