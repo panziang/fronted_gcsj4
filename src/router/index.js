@@ -9,7 +9,7 @@ import userRoutes from './user'
 const indexRoutes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/sign-in'
   }
 ]
 

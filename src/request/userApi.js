@@ -1,8 +1,8 @@
 /**
- * 首页数据请求api
+ * 用户数据请求api
  */
 import axios from 'axios'
-import {requestPost,requestGet } from './request'
+import { requestPost, requestGet, requestUpload } from './request'
 
 // const apiBaseURL = import.meta.env.VITE_API_BASE_URL || null
 // const apiBaseURL = 'http://localhost:9000/user-server/api'
@@ -19,36 +19,45 @@ const apiBaseURL = '/user-server'
 // }
 
 //获取图形验证码
-export function sendKaptcha(param, successResponse, errorResponse) {
+export function sendKaptcha (param, successResponse, errorResponse) {
   requestGet('/api/notify/v1/get_kaptcha', param, apiBaseURL, successResponse, errorResponse)
- 
+
+}
+
+//上传用户头像
+export function getAvatar (param, successResponse, errorResponse) {
+  requestUpload('/api/user/v1/upload_headImg', param, apiBaseURL, successResponse, errorResponse)
 }
 
 
 //密码登录
-export function getSignInByPwd(param, successResponse, errorResponse) {
+export function getSignInByPwd (param, successResponse, errorResponse) {
   requestPost('/api/user/v1/login_by_password', param, apiBaseURL, successResponse, errorResponse)
 }
 
 //获取用户详情信息
-export function getUserDetail(param, successResponse, errorResponse) {
+export function getUserDetail (param, successResponse, errorResponse) {
   requestGet('/api/user/v1/detail', param, apiBaseURL, successResponse, errorResponse)
 }
 
-//注册
-// export function getSignUp(param, successResponse, errorResponse) {
-//   requestPost('/register', param, apiBaseURL, successResponse, errorResponse)
-// }
 
-//发送手机验证码
-// export function sendCode(param, successResponse, errorResponse) {
-//   requestGet('/sendCode', param, apiBaseURL, successResponse, errorResponse)
-// }
 
-//手机号登录
-// export function getSignInByPhone(param, successResponse, errorResponse) {
-//   requestPost('/loginByPhone', param, apiBaseURL, successResponse, errorResponse)
-// }
+// 注册
+export function getSignUp (param, successResponse, errorResponse) {
+  requestPost('/api/user/v1/register', param, apiBaseURL, successResponse, errorResponse)
+}
+
+// 邮箱、手机号验证码发送
+export function getSignCode (param, successResponse, errorResponse) {
+  requestGet('/api/notify/v1/get_register_code', param, apiBaseURL, successResponse, errorResponse)
+}
+
+// 退出登录
+export function getSignOut (param, successResponse, errorResponse) {
+  requestGet('/api/user/v1/log_out', param, apiBaseURL, successResponse, errorResponse)
+}
+
+
 
 
 

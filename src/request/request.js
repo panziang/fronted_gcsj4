@@ -131,8 +131,7 @@ const sendRequest = (url, method, param, config, successResponse, errorResponse)
       }
     }
   }
-  // console.log("param47", param);
-  // console.log("params47",params);
+
   // 初始化配置
   const axiosConfig = {
     baseURL: config.baseURL || null,
@@ -281,10 +280,12 @@ const requestUpload = (url, param, baseURL, successResponse, errorResponse) => {
 
   const formData = new FormData()
   if (param) {
+    console.log("param", param);
     Object.keys(param).forEach((k) => {
       formData.append(k, param[k])
     })
   }
+  console.log("formData", formData);
   return sendRequest(url, 'POST', formData, config, successResponse, errorResponse)
 }
 

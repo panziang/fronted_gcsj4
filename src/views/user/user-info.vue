@@ -50,7 +50,7 @@
         </van-cell-group>
       </div>
       <div class="exit-btn">
-        <van-button type="danger">退出登录</van-button>
+        <van-button type="danger" @click="getOutClick">退出登录</van-button>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
 <script setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router';
-  import { getUserDetail } from '../../request/userApi'
+  import { getUserDetail, getSignOut } from '@/request/userApi'
   import { onMounted } from 'vue';
   import { reactive } from 'vue';
 
@@ -110,6 +110,34 @@
         console.log('error: ', error)
         console.log('msg: ', msg)
         console.log("登录失败");
+      }
+    )
+  }
+  const getOutClick = () => {
+    getSignOut(
+      {},
+      (status, res, data) => {
+        console.log('status: ', status)
+        console.log('res: ', res)
+        console.log('data: ', data)
+
+        if (data.code == '0') {
+          // PromptMessage.messageSuccess('登录成功')
+          console.log("成功登出");
+          localStorage.removeItem('1024token')
+          router.push('/sign-in')
+
+        } else {
+          // PromptMessage.messageBoxError('登录失败', data.msg)
+          console.log("登出失败");
+        }
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("登出失败");
       }
     )
   }
