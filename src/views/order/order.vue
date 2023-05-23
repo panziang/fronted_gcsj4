@@ -3,7 +3,7 @@
     <van-nav-bar title="我的订单" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="order-list">
       <van-swipe-cell v-for="item in orderData" :key="item.id">
-        <van-card num="1" :price=item.payPrice desc="描述信息" :title=item.orderItemVOList.product_title class="goods-card"
+        <van-card num="1" :price=item.payPrice desc="描述信息" :title=item.orderItemVOList.product_name class="goods-card"
           :thumb=item.orderItemVOList.product_image />
         <template #right>
           <van-button square text="删除" type="danger" class="delete-button" />
