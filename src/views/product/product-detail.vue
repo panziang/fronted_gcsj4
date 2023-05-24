@@ -3,15 +3,15 @@
     <van-nav-bar title="商品详情" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="info">
       <div class="show-img">
-        <img :src="productData.coverImg" alt="">
+        <img :src="productData.cover_img" alt="">
       </div>
       <div class="show-content">
         <div class="line">
           <div class="price">
             <div class="new">￥ {{ productData.price }}</div>
-            <div class="old">￥ {{ productData.oldPrice }}</div>
+            <div class="old">￥ {{ productData.old_price }}</div>
           </div>
-          <div class="stock">已售{{ productData.stock }}</div>
+          <div class="stock">库存{{ productData.stock }}</div>
         </div>
         <div class="title">
           <h2>{{ productData.title }}</h2>

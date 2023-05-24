@@ -11,11 +11,17 @@ export default [
   },
   {
     path: "/sign-in",
-    component: () => import("@/views/user/sign-in.vue")
+    component: () => import("@/views/user/sign-in.vue"),
+    meta: {
+      hideTabBar: true
+    }
   },
   {
     path: "/sign-up",
-    component: () => import("@/views/user/sign-up.vue")
+    component: () => import("@/views/user/sign-up.vue"),
+    meta: {
+      hideTabBar: true
+    }
   },
   {
     path: "/address-list",

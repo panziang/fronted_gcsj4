@@ -9,13 +9,13 @@
         <div class="product-item" @click="productClick(item)">
           <div class="item-inner">
             <div class="cover">
-              <img :src="item?.coverImg" alt="" />
+              <img :src="item?.cover_img" alt="" />
             </div>
             <div class="info">
               <div class="name">{{ item.title }}</div>
               <div class="price">
                 <div class="new">￥ {{ item.price }}</div>
-                <div class="old">￥ {{ item.oldPrice }}</div>
+                <div class="old">￥ {{ item.old_price }}</div>
                 <!-- <div class="tip" v-if="itemData.priceTipBadge">
                   {{ itemData.priceTipBadge.text }}
                 </div> -->

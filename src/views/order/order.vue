@@ -2,13 +2,20 @@
   <div class="order">
     <van-nav-bar title="我的订单" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="order-list">
-      <van-swipe-cell v-for="item in orderData" :key="item.id">
-        <van-card num="1" :price=item.payPrice desc="描述信息" :title=item.orderItemVOList.product_name class="goods-card"
-          :thumb=item.orderItemVOList.product_image />
-        <template #right>
-          <van-button square text="删除" type="danger" class="delete-button" />
-        </template>
-      </van-swipe-cell>
+      <van-tabs v-model:active="active">
+        <van-tab title="全部订单">
+          <van-swipe-cell v-for="item in orderData" :key="item.id">
+            <van-card num="1" :price=item.pay_price desc="描述信息" :title=item.order_item_list[0].product_name
+              class="goods-card" :thumb=item.order_item_list[0].product_img />
+            <template #right>
+              <van-button square text="删除" type="danger" class="delete-button" />
+            </template>
+          </van-swipe-cell>
+        </van-tab>
+        <van-tab title="失效订单">内容 2</van-tab>
+      </van-tabs>
+
+
 
 
     </div>
@@ -20,6 +27,8 @@
   import { useRouter } from 'vue-router'
   import { getOrderInfo } from '@/request/order'
   import { ref } from 'vue'
+
+  const active = ref(0);
   const router = useRouter()
   //监听返回按钮的点击
   const onClickLeft = () => {
@@ -31,7 +40,7 @@
       {
         page: 1,
         size: 10,
-        state: 'Pay'
+        // state: 'Pay'
       },
       (status, res, data) => {
         console.log('status: ', status)

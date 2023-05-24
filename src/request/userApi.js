@@ -57,6 +57,16 @@ export function getSignOut (param, successResponse, errorResponse) {
   requestGet('/api/user/v1/log_out', param, apiBaseURL, successResponse, errorResponse)
 }
 
+// 新增收货地址
+export function getNewAddress (param, successResponse, errorResponse) {
+  requestPost('/api/address/v1/save', param, apiBaseURL, successResponse, errorResponse)
+}
+
+// 查询收货地址列表
+export function getAddressList (param, successResponse, errorResponse) {
+  requestGet('/api/address/v1/list', param, apiBaseURL, successResponse, errorResponse)
+}
+
 
 
 
