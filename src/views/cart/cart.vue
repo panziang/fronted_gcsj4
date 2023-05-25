@@ -13,6 +13,8 @@
         <van-button round type="warning" class="clear-button" @click="clearClick">清空购物车</van-button>
       </van-submit-bar>
     </div>
+    <van-empty description="购物车为空" v-if="cartData.length == 0">
+    </van-empty>
     <van-empty description="暂未登录" v-if="!isLogin">
       <van-button round type="danger" class="bottom-button" @click="signInClick">登录</van-button>
     </van-empty>

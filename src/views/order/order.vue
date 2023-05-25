@@ -5,8 +5,8 @@
       <van-tabs v-model:active="active">
         <van-tab title="全部订单">
           <van-swipe-cell v-for="item in orderData" :key="item.id">
-            <van-card num="1" :price=item.pay_price desc="描述信息" :title=item.order_item_list[0].product_name
-              class="goods-card" :thumb=item.order_item_list[0].product_img />
+            <van-card num="1" :price=item.pay_price desc="描述信息" :title=item?.order_item_list[0]?.product_name
+              class="goods-card" :thumb=item?.order_item_list[0]?.product_img />
             <template #right>
               <van-button square text="删除" type="danger" class="delete-button" />
             </template>
@@ -16,6 +16,8 @@
       </van-tabs>
 
     </div>
+    <van-empty description="暂无订单" v-if="orderData.length == 0">
+    </van-empty>
     <van-empty description="暂未登录" v-if="!isLogin">
       <van-button round type="danger" class="bottom-button" @click="signInClick">登录</van-button>
     </van-empty>
