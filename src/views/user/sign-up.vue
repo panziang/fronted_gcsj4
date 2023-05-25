@@ -58,7 +58,7 @@
   import { useRouter } from 'vue-router';
   import homeNavBar from '../home/cpns/home-nav-bar.vue';
   import { ref } from 'vue';
-  import { sendKaptcha, getAvatar, getSignUp, getSignCode } from '../../request/userApi'
+  import { sendKaptcha, getAvatar, getSignUp, getSignCode } from '../../request/user'
   import { Toast } from 'vant';
 
   const username = ref('');

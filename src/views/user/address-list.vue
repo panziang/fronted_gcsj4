@@ -1,8 +1,7 @@
 <template>
   <div class="address-list">
     <van-nav-bar title="地址管理" left-text="返回" left-arrow @click-left="onClickLeft" />
-    <van-address-list v-model="chosenAddressId" :list="list" :disabled-list="disabledList" disabled-text="以下地址超出配送范围"
-      default-tag-text="默认" @add="onAdd" @edit="onEdit" />
+    <van-address-list v-model="chosenAddressId" :list="addressList" default-tag-text="默认" @add="onAdd" @edit="onEdit" />
   </div>
 </template>
 
@@ -10,7 +9,7 @@
   import { ref } from 'vue';
   import { Toast } from 'vant';
   import { useRouter } from 'vue-router';
-  import { getAddressList } from '@/request/userApi'
+  import { getAddressList } from '@/request/user'
   import { onMounted } from 'vue';
 
 
@@ -30,25 +29,17 @@
 
         if (data.code == '0') {
           console.log("获取地址成功");
-          // data.data.forEach(item => {
-          //   console.log(item);
-          //   addressList.value.push(item)
-          //   addressList.value.id = item.id;
-          //   addressList.value.name = item.receiveName;
-          //   addressList.value.tel = item.phone;
-          //   addressList.value.address = item.province + item.city + item.region + item.detailAddress;
-          //   addressList.value.isDefault = item.defaultStatus ? true : false;
-          // })
-          console.log("data1", data.data);
-          console.log("id", addressList.value[0].id);
-          for (let i = 0; i < data.data.length; i++) {
-            // addressList.value[i].id = data.data[i].id;
-            // addressList.value[i].name = data.data[i].receiveName;
-            // addressList.value[i].tel = data.data[i].phone;
-            // addressList.value[i].address = data.data[i].province + data.data[i].city + data.data[i].region + data.data[i].detailAddress;
-            // addressList.value[i].isDefault = data.data[i].defaultStatus ? true : false;
-          }
-          console.log("addressList", addressList.value);
+          data.data.forEach(item => {
+            let obj = ref({})
+            obj.value.id = item.id;
+            obj.value.name = item.receiveName;
+            obj.value.tel = item.phone;
+            obj.value.address = item.province + item.city + item.region + item.detailAddress;
+            obj.value.isDefault = (item.defaultStatus === 1) ? true : false;
+            addressList.value.push(obj.value)
+
+          })
+          // console.log("addressList", addressList.value);
         } else {
           console.log("获取地址失败1");
         }
@@ -63,7 +54,7 @@
     )
   }
 
-  const chosenAddressId = ref('1');
+  const chosenAddressId = ref('');
 
   // const list = [
   //   {
@@ -80,14 +71,6 @@
   //     address: '浙江省杭州市拱墅区莫干山路 50 号',
   //   },
   // ];
-  const disabledList = [
-    {
-      id: '3',
-      name: '王五',
-      tel: '1320000000',
-      address: '浙江省杭州市滨江区江南大道 15 号',
-    },
-  ];
 
   const onAdd = () => {
     router.push('/address-edit')

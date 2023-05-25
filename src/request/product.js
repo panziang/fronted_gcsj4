@@ -1,5 +1,5 @@
 /**
- * 首页数据请求api
+ * 商品数据请求api
  */
 import { requestPost, requestGet } from './request'
 
@@ -30,6 +30,11 @@ export function getCart (param, successResponse, errorResponse) {
 //添加商品到购物车
 export function getAddToCart (param, successResponse, errorResponse) {
   requestPost('/api/cart/v1/add', param, apiBaseURL, successResponse, errorResponse)
+}
+
+//清空购物车
+export function clearCart (param, successResponse, errorResponse) {
+  requestGet('/api/cart/v1/clear', param, apiBaseURL, successResponse, errorResponse)
 }
 
 

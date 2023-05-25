@@ -29,7 +29,7 @@
   import { useRouter } from 'vue-router';
   import homeNavBar from '../home/cpns/home-nav-bar.vue';
   import { ref } from 'vue';
-  import { getSignInByPwd } from '../../request/userApi'
+  import { getSignInByPwd } from '../../request/user'
 
   const email = ref('');
   const password = ref('');

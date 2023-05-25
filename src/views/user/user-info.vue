@@ -1,5 +1,6 @@
 <template>
-  <div class="user-info">
+  <van-nav-bar title="个人中心" left-text="返回" left-arrow @click-left="onClickLeft" />
+  <div class="user-info" v-if="isLogin">
     <!-- <h2>user-info</h2> -->
     <div class="header">
       <van-image round width="4rem" height="4rem" fit="cover" :src=userInfo.head_img />
@@ -54,16 +55,31 @@
       </div>
     </div>
   </div>
+  <van-empty description="暂未登录" v-if="!isLogin">
+    <van-button round type="danger" class="bottom-button" @click="signInClick">登录</van-button>
+  </van-empty>
 </template>
 
 <script setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router';
-  import { getUserDetail, getSignOut } from '@/request/userApi'
+  import { getUserDetail, getSignOut } from '@/request/user'
   import { onMounted } from 'vue';
   import { reactive } from 'vue';
 
   const router = useRouter()
+
+  //判断是否登录
+  const isLogin = ref(false)
+  //未登录时按钮跳转至登录
+  const signInClick = () => {
+    router.push('/sign-in')
+  }
+
+  //监听返回按钮的点击
+  const onClickLeft = () => {
+    router.back()
+  }
 
   const userInfo = reactive({
     head_img: '',
@@ -143,6 +159,9 @@
   }
 
   onMounted(() => {
+    if (localStorage.getItem('1024token')) {
+      isLogin.value = true
+    }
     getUserInfo()
   })
 
@@ -209,5 +228,10 @@
       }
     }
   }
+}
+
+.bottom-button {
+  width: 160px;
+  height: 40px;
 }
 </style>

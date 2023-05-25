@@ -1,7 +1,7 @@
 <template>
   <div class="order">
     <van-nav-bar title="我的订单" left-text="返回" left-arrow @click-left="onClickLeft" />
-    <div class="order-list">
+    <div class="order-list" v-if="isLogin">
       <van-tabs v-model:active="active">
         <van-tab title="全部订单">
           <van-swipe-cell v-for="item in orderData" :key="item.id">
@@ -15,10 +15,10 @@
         <van-tab title="失效订单">内容 2</van-tab>
       </van-tabs>
 
-
-
-
     </div>
+    <van-empty description="暂未登录" v-if="!isLogin">
+      <van-button round type="danger" class="bottom-button" @click="signInClick">登录</van-button>
+    </van-empty>
   </div>
 </template>
 
@@ -34,6 +34,13 @@
   const onClickLeft = () => {
     router.back()
   }
+  //判断是否登录
+  const isLogin = ref(false)
+  //未登录时按钮跳转至登录
+  const signInClick = () => {
+    router.push('/sign-in')
+  }
+
   const orderData = ref([])
   const getOrder = () => {
     getOrderInfo(
@@ -67,6 +74,9 @@
   }
 
   onMounted(() => {
+    if (localStorage.getItem('1024token')) {
+      isLogin.value = true
+    }
     getOrder()
   })
 </script>
@@ -88,6 +98,11 @@
     .delete-button {
       height: 100%;
     }
+  }
+
+  .bottom-button {
+    width: 160px;
+    height: 40px;
   }
 }
 </style>

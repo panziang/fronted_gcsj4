@@ -11,7 +11,7 @@
   import { Toast } from 'vant';
   import { useRouter } from 'vue-router';
   import { areaList } from '@vant/area-data';
-  import { getNewAddress } from '@/request/userApi'
+  import { getNewAddress } from '@/request/user'
 
 
   const router = useRouter()
@@ -101,18 +101,18 @@
     )
   };
   const onDelete = () => Toast('delete');
-                // const onChangeDetail = (val) => {
-                //   if (val) {
-                //     searchResult.value = [
-                //       {
-                //         name: '黄龙万科中心',
-                //         address: '杭州市西湖区',
-                //       },
-                //     ];
-                //   } else {
-                //     searchResult.value = [];
-                //   }
-                // };
+                  // const onChangeDetail = (val) => {
+                  //   if (val) {
+                  //     searchResult.value = [
+                  //       {
+                  //         name: '黄龙万科中心',
+                  //         address: '杭州市西湖区',
+                  //       },
+                  //     ];
+                  //   } else {
+                  //     searchResult.value = [];
+                  //   }
+                  // };
 </script>
 
 <style lang="less" scoped></style>
