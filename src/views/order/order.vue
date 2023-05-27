@@ -5,8 +5,8 @@
       <van-tabs v-model:active="active">
         <van-tab title="全部订单">
           <van-swipe-cell v-for="item in orderData" :key="item.id">
-            <van-card num="1" :price=item.pay_price desc="描述信息" :title=item?.order_item_list[0]?.product_name
-              class="goods-card" :thumb=item?.order_item_list[0]?.product_img />
+            <van-card num="1" :price=item?.pay_price :title=item?.order_item_list[0]?.product_name class="goods-card"
+              :thumb=item?.order_item_list[0]?.product_img @click="orderClick(item)" />
             <template #right>
               <van-button square text="删除" type="danger" class="delete-button" />
             </template>
@@ -43,6 +43,10 @@
     router.push('/sign-in')
   }
 
+  const orderClick = (item) => {
+    router.push('/order-detail/' + item.id)
+  }
+
   const orderData = ref([])
   const getOrder = () => {
     getOrderInfo(
@@ -52,14 +56,14 @@
         // state: 'Pay'
       },
       (status, res, data) => {
-        console.log('status: ', status)
-        console.log('res: ', res)
-        console.log('data: ', data)
+        // console.log('status: ', status)
+        // console.log('res: ', res)
+        // console.log('data: ', data)
 
         if (data.code == '0') {
-          console.log("获取订单信息成功");
+          // console.log("获取订单信息成功");
           orderData.value = data.data.current_data
-          console.log("orderData", orderData.value);
+          // console.log("orderData", orderData.value);
 
         } else {
           console.log("获取订单信息失败");

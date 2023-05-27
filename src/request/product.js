@@ -32,6 +32,11 @@ export function getAddToCart (param, successResponse, errorResponse) {
   requestPost('/api/cart/v1/add', param, apiBaseURL, successResponse, errorResponse)
 }
 
+//删除购物项
+export function delCartById (param, successResponse, errorResponse) {
+  requestGet(`/api/cart/v1/delete/${param.id}`, param, apiBaseURL, successResponse, errorResponse)
+}
+
 //清空购物车
 export function clearCart (param, successResponse, errorResponse) {
   requestGet('/api/cart/v1/clear', param, apiBaseURL, successResponse, errorResponse)

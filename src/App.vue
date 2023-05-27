@@ -21,4 +21,8 @@
   const active = ref(0)
 </script>
 
-<style scoped></style>
+<style scoped>
+.app {
+  background-color: rgb(250, 250, 250);
+}
+</style>

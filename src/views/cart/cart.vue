@@ -3,10 +3,10 @@
     <van-nav-bar title="购物车" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="cart-list" v-if="isLogin">
       <van-swipe-cell v-for="item in cartData" :key="item.product_id">
-        <van-card :num=item.buy_num :price=item.price desc="描述信息" :title=item.product_title class="goods-card"
+        <van-card :num=item.buy_num :price=item.price :title=item.product_title class="goods-card"
           :thumb=item.product_image @click="productClick(item)" />
         <template #right>
-          <van-button square text="删除" type="danger" class="delete-button" />
+          <van-button square text="删除" type="danger" class="delete-button" @click="delClick(item)" />
         </template>
       </van-swipe-cell>
       <van-submit-bar :price="3050" button-text="立即购买" @submit="onSubmit">
@@ -23,7 +23,7 @@
 
 <script setup>
   import { useRouter } from 'vue-router';
-  import { getCart, clearCart } from '@/request/product'
+  import { getCart, clearCart, delCartById } from '@/request/product'
   import { onMounted } from 'vue'
   import { ref } from 'vue';
   import { Toast } from 'vant';
@@ -44,6 +44,9 @@
     // console.log(item.houseId);
     router.push("/product-detail/" + item.product_id)
   }
+  const onSubmit = () => {
+    router.push('/pay')
+  }
 
   //获取购物车信息
   const cartData = ref([])
@@ -51,15 +54,45 @@
     getCart(
       {},
       (status, res, data) => {
+        // console.log('status: ', status)
+        // console.log('res: ', res)
+        // console.log('data: ', data)
+
+        if (data.code == '0') {
+          // console.log("获取购物车信息成功");
+          cartData.value = data.data.cart_items
+        } else {
+          console.log("获取购物车信息失败");
+        }
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("获取购物车信息失败");
+      }
+    )
+  }
+
+  //删除购物项
+  const delClick = (item) => {
+    delCartById(
+      {
+        id: item.product_id
+      },
+      (status, res, data) => {
         console.log('status: ', status)
         console.log('res: ', res)
         console.log('data: ', data)
 
         if (data.code == '0') {
-          console.log("获取购物车信息成功");
-          cartData.value = data.data.cart_items
+          console.log("删除成功");
+          Toast.success('删除成功');
+          getCartList()
         } else {
-          console.log("获取购物车信息失败");
+          console.log("删除失败");
+          Toast.fail('删除失败');
         }
 
       },

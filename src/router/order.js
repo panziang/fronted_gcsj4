@@ -7,7 +7,11 @@ export default [
     component: () => import("@/views/order/order.vue")
   },
   {
-    path: "/order-detail",
+    path: "/order-detail/:id",
     component: () => import("@/views/order/order-detail.vue")
   },
+  {
+    path: "/pay",
+    component: () => import("@/views/order/pay.vue")
+  }
 ]

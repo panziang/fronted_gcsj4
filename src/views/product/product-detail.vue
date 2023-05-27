@@ -25,7 +25,7 @@
       <van-action-bar-icon icon="chat-o" text="客服" @click="onClickIcon" />
       <van-action-bar-icon icon="cart-o" text="购物车" @click="onClickCart" />
       <van-action-bar-button type="warning" text="加入购物车" @click="addProduct()" />
-      <van-action-bar-button type="danger" text="立即购买" @click="onClickButton" />
+      <van-action-bar-button type="danger" text="立即购买" @click="payClick" />
     </van-action-bar>
   </div>
 </template>
@@ -47,6 +47,9 @@
   const onClickButton = () => Toast('点击按钮');
   const onClickCart = () => {
     router.push('/cart')
+  }
+  const payClick = () => {
+    router.push('/pay')
   }
 
   const productData = ref({})
