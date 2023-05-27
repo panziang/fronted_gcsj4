@@ -60,6 +60,7 @@
   import { ref } from 'vue';
   import { sendKaptcha, getAvatar, getSignUp, getSignCode } from '../../request/user'
   import { Toast } from 'vant';
+  import { onMounted } from 'vue';
 
   const username = ref('');
   const password = ref('');
@@ -183,6 +184,9 @@
     console.log('submit', values);
     signUp()
   };
+  onMounted(() => {
+    getKaptcha()
+  })
 </script>
 
 <style lang="less" scoped>

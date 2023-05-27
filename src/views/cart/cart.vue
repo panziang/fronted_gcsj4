@@ -4,12 +4,19 @@
     <div class="cart-list" v-if="isLogin">
       <van-swipe-cell v-for="item in cartData" :key="item.product_id">
         <van-card :num=item.buy_num :price=item.price :title=item.product_title class="goods-card"
-          :thumb=item.product_image @click="productClick(item)" />
+          :thumb=item.product_image>
+          <!-- @click="productClick(item)" -->
+          <template #footer>
+            <van-checkbox v-model="item.isCheck" icon-size="24px" class="checkbox"
+              @click="checkboxClick(item)">选择</van-checkbox>
+            <!-- <van-radio name="1">单选框 1</van-radio> -->
+          </template>
+        </van-card>
         <template #right>
           <van-button square text="删除" type="danger" class="delete-button" @click="delClick(item)" />
         </template>
       </van-swipe-cell>
-      <van-submit-bar :price="3050" button-text="立即购买" @submit="onSubmit">
+      <van-submit-bar :price=cartPrice button-text="立即购买" @submit="onSubmit">
         <van-button round type="warning" class="clear-button" @click="clearClick">清空购物车</van-button>
       </van-submit-bar>
     </div>
@@ -50,6 +57,14 @@
 
   //获取购物车信息
   const cartData = ref([])
+  const cartPrice = ref(0)
+  const checkboxClick = (item) => {
+    if (item.isCheck) {
+      cartPrice.value += item.total_price * 100
+    } else {
+      cartPrice.value -= item.total_price * 100
+    }
+  }
   const getCartList = () => {
     getCart(
       {},
@@ -61,6 +76,13 @@
         if (data.code == '0') {
           // console.log("获取购物车信息成功");
           cartData.value = data.data.cart_items
+          cartData.value.forEach(item => {
+            item.isCheck = 0
+            // item.price *= 100
+            // console.log("item.total_price", item.total_price);
+            // cartPrice.value += item.total_price
+          })
+          console.log("cartData", cartData.value);
         } else {
           console.log("获取购物车信息失败");
         }
@@ -151,6 +173,11 @@
     .van-swipe-cell {
       margin-top: 30px;
 
+      .checkbox {
+        // border: 1px solid red;
+        display: flex;
+        justify-content: end;
+      }
     }
 
 
