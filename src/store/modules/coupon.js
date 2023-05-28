@@ -5,7 +5,8 @@ import { getResTime } from '@/utils/format_date'
 
 const useCouponStore = defineStore("coupon", {
   state: () => ({
-    couponList: []
+    couponList: [],
+    couponNum: 0
   }),
   actions: {
     getCoupon () {
@@ -35,6 +36,7 @@ const useCouponStore = defineStore("coupon", {
               this.couponList.push(obj.value)
             })
             // this.couponList = data.data.current_data
+            this.couponNum = this.couponList.length
             console.log("couponList", this.couponList);
           } else {
             // PromptMessage.messageBoxError('登录失败', data.msg)

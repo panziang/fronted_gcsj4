@@ -20,7 +20,7 @@
         <div class="card-box" @click="cartClick">
           <div class="num">
             <span>
-              <p>12</p>
+              <p>{{ cartNum }}</p>
               购物车
             </span>
           </div>
@@ -31,7 +31,7 @@
         <div class="card-box" @click="couponClick">
           <div class="num">
             <span>
-              <p>3</p>
+              <p>{{ couponNum }}</p>
               我的优惠券
             </span>
           </div>
@@ -43,11 +43,7 @@
       <div class="list">
         <van-cell-group>
           <van-cell title="地址信息" icon="location-o" is-link @click="addressClick" />
-          <van-cell title="单元格" icon="location-o" is-link />
-          <van-cell title="单元格" icon="location-o" is-link />
-          <van-cell title="单元格" icon="location-o" is-link />
-          <van-cell title="单元格" icon="location-o" is-link />
-          <van-cell title="单元格" icon="location-o" is-link />
+          <van-cell title="订单信息" icon="orders-o" is-link @click="orderClick" />
         </van-cell-group>
       </div>
       <div class="exit-btn">
@@ -66,6 +62,9 @@
   import { getUserDetail, getSignOut } from '@/request/user'
   import { onMounted } from 'vue';
   import { reactive } from 'vue';
+  import useCouponStore from '@/store/modules/coupon'
+  import useCartStore from '@/store/modules/cart';
+  import { storeToRefs } from 'pinia';
 
   const router = useRouter()
 
@@ -81,6 +80,10 @@
     router.back()
   }
 
+  const orderClick = () => {
+    router.push('/order')
+  }
+
   const userInfo = reactive({
     head_img: '',
     name: '',
@@ -93,6 +96,13 @@
   const couponClick = () => {
     router.push('/coupon')
   }
+  //优惠券模块
+  const couponStore = useCouponStore()
+  const { couponList, couponNum } = storeToRefs(couponStore)
+
+  const cartStore = useCartStore()
+  const { cartNum } = storeToRefs(cartStore)
+
 
   const addressClick = () => {
     router.push('/address-list')
@@ -162,6 +172,16 @@
     if (localStorage.getItem('1024token')) {
       isLogin.value = true
     }
+
+    if (couponList.value.length == 0) {
+      couponStore.getCoupon()
+
+    } else {
+      couponStore.$reset()
+      couponStore.getCoupon()
+    }
+    cartStore.getCartList()
+
     getUserInfo()
   })
 

@@ -53,7 +53,15 @@
   const corderStore = useOrderStore()
   const { orderList } = storeToRefs(corderStore)
   const payClick = () => {
-    orderList.value.push(productData.value)
+    console.log("productData", productData.value);
+    let obj = {}
+    obj.product_id = productData.value.id
+    obj.buy_num = 1
+    obj.price = productData.value.price
+    obj.total_price = productData.value.price
+    obj.product_title = productData.value.title
+    obj.product_image = productData.value.cover_img
+    orderList.value.push(obj)
     router.push('/pay/' + "PRODUCT")
   }
 

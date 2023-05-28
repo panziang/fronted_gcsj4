@@ -27,6 +27,8 @@
         <van-coupon-list :coupons="coupons" :chosen-coupon="chosenCoupon" @change="onChange" />
       </van-popup>
     </div>
+    <div class="pay-test" v-html=htmlData>
+    </div>
     <van-submit-bar :price=totalPrice button-text="提交订单" @submit="onSubmit" />
   </div>
 </template>
@@ -69,6 +71,12 @@
   //pinia
   const orderStore = useOrderStore()
   const { orderList } = storeToRefs(orderStore)
+  const productId = ref([])
+  orderList.value.forEach(item => {
+    productId.value.push(item.product_id)
+  })
+  console.log("productId", productId.value);
+
   const addressStore = useAddressStore()
   const { addressPiniaList } = storeToRefs(addressStore)
   const couponStore = useCouponStore()
@@ -144,13 +152,12 @@
     )
   }
   //提交订单
+  const htmlData = ref('')
   const onSubmit = () => {
     getOrderConfirm(
       {
         coupon_id: chosenCouponId.value,
-        product_ids: [
-          2
-        ],
+        product_ids: productId.value,
         pay_type: "ALIPAY",
         client_type: "H5",
         address_id: chosenAddressId.value,
@@ -164,6 +171,7 @@
         console.log('status: ', status)
         console.log('res: ', res)
         console.log('data: ', data)
+        htmlData.value = data
 
       },
       (status, error, msg) => {
@@ -197,6 +205,11 @@
 .pay {
   .van-submit-bar {
     margin-bottom: 60px;
+  }
+
+  .pay-test {
+    height: 100px;
+    // border: 1px solid red;
   }
 }
 </style>
