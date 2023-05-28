@@ -11,7 +11,7 @@ export default [
     component: () => import("@/views/order/order-detail.vue")
   },
   {
-    path: "/pay",
+    path: "/pay/:order_way",
     component: () => import("@/views/order/pay.vue")
   }
 ]

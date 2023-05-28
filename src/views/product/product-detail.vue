@@ -36,6 +36,8 @@
   import { onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import { Toast } from 'vant';
+  import useOrderStore from '@/store/modules/order'
+  import { storeToRefs } from 'pinia';
 
   const route = useRoute()
   const router = useRouter()
@@ -44,12 +46,15 @@
     history.back();
   }
   const onClickIcon = () => Toast('点击图标');
-  const onClickButton = () => Toast('点击按钮');
   const onClickCart = () => {
     router.push('/cart')
   }
+
+  const corderStore = useOrderStore()
+  const { orderList } = storeToRefs(corderStore)
   const payClick = () => {
-    router.push('/pay')
+    orderList.value.push(productData.value)
+    router.push('/pay/' + "PRODUCT")
   }
 
   const productData = ref({})

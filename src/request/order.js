@@ -21,6 +21,16 @@ const apiBaseURL = '/order-server'
 export function getOrderInfo (param, successResponse, errorResponse) {
   requestGet('/api/order/v1/page', param, apiBaseURL, successResponse, errorResponse)
 }
+//获取订单防重令牌
+export function getOrderToken (param, successResponse, errorResponse) {
+  requestGet('/api/order/v1/get_token', param, apiBaseURL, successResponse, errorResponse)
+}
+
+//提交订单
+export function getOrderConfirm (param, successResponse, errorResponse) {
+  requestPost('/api/order/v1/confirm', param, apiBaseURL, successResponse, errorResponse)
+}
+
 
 
 

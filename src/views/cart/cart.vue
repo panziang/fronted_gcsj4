@@ -34,8 +34,13 @@
   import { onMounted } from 'vue'
   import { ref } from 'vue';
   import { Toast } from 'vant';
+  import useOrderStore from '@/store/modules/order'
+  import { storeToRefs } from 'pinia';
 
   const router = useRouter()
+  //pinia
+  const orderStore = useOrderStore()
+  const { orderList } = storeToRefs(orderStore)
   //判断是否登录
   const isLogin = ref(false)
   //未登录时按钮跳转至登录
@@ -52,7 +57,19 @@
     router.push("/product-detail/" + item.product_id)
   }
   const onSubmit = () => {
-    router.push('/pay')
+    let haveCheck = ref(false)
+    cartData.value.forEach(item => {
+      if (item.isCheck) {
+        orderList.value.push(item)
+        haveCheck.value = true
+      }
+    })
+    if (haveCheck.value) {
+      router.push('/pay/' + "CART")
+    } else {
+      Toast.fail('请选择购买的商品！');
+    }
+
   }
 
   //获取购物车信息
