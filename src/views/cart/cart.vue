@@ -87,38 +87,6 @@
     }
   }
 
-  // const getCartList = () => {
-  //   getCart(
-  //     {},
-  //     (status, res, data) => {
-  //       // console.log('status: ', status)
-  //       // console.log('res: ', res)
-  //       // console.log('data: ', data)
-
-  //       if (data.code == '0') {
-  //         // console.log("获取购物车信息成功");
-  //         cartData.value = data.data.cart_items
-  //         cartData.value.forEach(item => {
-  //           item.isCheck = 0
-  //           // item.price *= 100
-  //           // console.log("item.total_price", item.total_price);
-  //           // cartPrice.value += item.total_price
-  //         })
-  //         console.log("cartData", cartData.value);
-  //       } else {
-  //         console.log("获取购物车信息失败");
-  //       }
-
-  //     },
-  //     (status, error, msg) => {
-  //       console.log('status: ', status)
-  //       console.log('error: ', error)
-  //       console.log('msg: ', msg)
-  //       console.log("获取购物车信息失败");
-  //     }
-  //   )
-  // }
-
   //删除购物项
   const delClick = (item) => {
     delCartById(
@@ -161,7 +129,7 @@
         if (data.code == '0') {
           console.log("清空购物车成功");
           Toast.success('清空购物车成功');
-          getCartList()
+          cartStore.getCartList()
         } else {
           console.log("清空购物车失败");
           Toast.fail('清空购物车失败');

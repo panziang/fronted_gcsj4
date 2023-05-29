@@ -3,7 +3,7 @@
     <home-nav-bar />
     <div class="form-content">
       <van-form @submit="onSubmit">
-        <van-field name="uploader" label="文件上传" :rules="[{ required: true, message: '请上传头像' }]">
+        <van-field name="uploader" label="头像上传" :rules="[{ required: true, message: '请上传头像' }]">
           <template #input>
             <van-uploader :after-read="afterRead" v-model="fileList" :max-count="1" />
           </template>

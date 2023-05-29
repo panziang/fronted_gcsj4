@@ -41,7 +41,14 @@
         </div>
       </div>
       <div class="list">
-        <van-cell-group>
+        <van-cell-group title="个人信息">
+          <van-cell title="用户名" :value=userInfo.name is-link />
+          <van-cell title="性别" :value=userInfo.sex is-link />
+          <van-cell title="邮箱" :value=userInfo.mail is-link />
+          <van-cell title="个性签名" :value=userInfo.slogan is-link />
+          <van-cell title="密码" is-link />
+        </van-cell-group>
+        <van-cell-group title="其他信息">
           <van-cell title="地址信息" icon="location-o" is-link @click="addressClick" />
           <van-cell title="订单信息" icon="orders-o" is-link @click="orderClick" />
         </van-cell-group>
@@ -87,7 +94,9 @@
   const userInfo = reactive({
     head_img: '',
     name: '',
-    slogan: ''
+    slogan: '',
+    sex: '',
+    mail: '',
   })
   const cartClick = () => {
     router.push('/cart');
@@ -124,6 +133,8 @@
           userInfo.head_img = data.data.head_img
           userInfo.name = data.data.name
           userInfo.slogan = data.data.slogan
+          userInfo.sex = data.data.sex == 1 ? '男' : '女'
+          userInfo.mail = data.data.mail
 
         } else {
           // PromptMessage.messageBoxError('登录失败', data.msg)
@@ -201,7 +212,7 @@
   }
 
   .content {
-    height: calc(100vh - 130px);
+    // height: calc(100vh - 200px);
     padding-left: 10px;
     padding-right: 10px;
     // background-color: rgb(242, 242, 242);
@@ -209,7 +220,7 @@
     .card {
       display: flex;
       justify-content: space-between;
-      margin-top: 40px;
+      margin-top: 20px;
 
       .card-box {
         width: 48%;
@@ -235,16 +246,17 @@
     }
 
     .list {
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
     .exit-btn {
       display: flex;
       justify-content: center;
-      margin-top: 100px;
+      margin-top: 20px;
 
       .van-button {
         width: 200px;
+        margin-bottom: 20px;
       }
     }
   }

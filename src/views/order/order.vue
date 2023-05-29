@@ -3,7 +3,8 @@
     <van-nav-bar title="我的订单" left-text="返回" left-arrow @click-left="onClickLeft" />
     <div class="order-list" v-if="isLogin">
       <van-tabs v-model:active="active">
-        <van-tab title="全部订单">
+
+        <van-tab title="已支付订单">
           <van-swipe-cell v-for="item in orderData" :key="item.id">
             <van-card num="1" :price=item?.pay_price :title=item?.order_item_list[0]?.product_name class="goods-card"
               :thumb=item?.order_item_list[0]?.product_img @click="orderClick(item)" />
@@ -12,7 +13,16 @@
             </template>
           </van-swipe-cell>
         </van-tab>
-        <van-tab title="失效订单">内容 2</van-tab>
+
+        <van-tab title="失效订单">
+          <van-swipe-cell v-for="item in orderCancelData" :key="item.id">
+            <van-card num="1" :price=item?.pay_price :title=item?.order_item_list[0]?.product_name class="goods-card"
+              :thumb=item?.order_item_list[0]?.product_img @click="orderClick(item)" />
+            <template #right>
+              <van-button square text="删除" type="danger" class="delete-button" />
+            </template>
+          </van-swipe-cell>
+        </van-tab>
       </van-tabs>
 
     </div>
@@ -48,12 +58,12 @@
   }
 
   const orderData = ref([])
-  const getOrder = () => {
+  const getOrder = (state) => {
     getOrderInfo(
       {
         page: 1,
         size: 10,
-        // state: 'Pay'
+        state: state
       },
       (status, res, data) => {
         // console.log('status: ', status)
@@ -79,11 +89,44 @@
     )
   }
 
+  const orderCancelData = ref([])
+  const getCancelOrder = (state) => {
+    getOrderInfo(
+      {
+        page: 1,
+        size: 10,
+        state: state
+      },
+      (status, res, data) => {
+        // console.log('status: ', status)
+        // console.log('res: ', res)
+        // console.log('data: ', data)
+
+        if (data.code == '0') {
+          // console.log("获取订单信息成功");
+          orderCancelData.value = data.data.current_data
+          // console.log("orderData", orderData.value);
+
+        } else {
+          console.log("获取订单信息失败");
+        }
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("获取购物车信息失败");
+      }
+    )
+  }
+
   onMounted(() => {
     if (localStorage.getItem('1024token')) {
       isLogin.value = true
     }
-    getOrder()
+    getOrder('PAY')
+    getCancelOrder('CANCEL')
   })
 </script>
 
@@ -91,6 +134,7 @@
 .order {
   .order-list {
     margin-top: 30px;
+    margin-bottom: 60px;
 
     .van-swipe-cell {
       margin-top: 30px;

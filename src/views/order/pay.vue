@@ -24,7 +24,7 @@
       <van-coupon-cell :coupons="coupons" :chosen-coupon="chosenCoupon" @click="couponClick" size="large" />
       <!-- 优惠券列表 -->
       <van-popup v-model:show="showCouponList" round position="bottom" style="height: 90%; padding-top: 4px;">
-        <van-coupon-list :coupons="coupons" :chosen-coupon="chosenCoupon" @change="onChange" />
+        <van-coupon-list :coupons="coupons" :chosen-coupon="chosenCoupon" @change="onChange" :show-exchange-bar=false />
       </van-popup>
     </div>
     <div class="pay-test" v-html=htmlData ref="payRef">
@@ -81,7 +81,7 @@
   const addressStore = useAddressStore()
   const { addressPiniaList } = storeToRefs(addressStore)
   const couponStore = useCouponStore()
-  const { couponList } = storeToRefs(couponStore)
+  const { myCouponList } = storeToRefs(couponStore)
 
   const totalPrice = ref(0)
   orderList.value.forEach(item => {
@@ -112,7 +112,7 @@
   }
 
   const coupons = ref([]);
-  coupons.value = couponList.value
+  coupons.value = myCouponList.value
   const showCouponList = ref(false);
   const chosenCoupon = ref(-1);
   const chosenCouponId = ref(-1);
@@ -155,7 +155,7 @@
   //提交订单
   const htmlData = ref('')
   const payRef = ref()
-  const onSubmit = () => {
+  const confirmPay = () => {
     getOrderConfirm(
       {
         coupon_id: chosenCouponId.value,
@@ -177,7 +177,7 @@
         // document.forms[0].submit();
         nextTick(() => {
           payRef.value.children[0].submit();
-          console.log("payRef", payRef.value);
+          // console.log("payRef", payRef.value);
         })
 
       },
@@ -189,13 +189,21 @@
       }
     )
   }
+  const onSubmit = () => {
+    getToken()
+
+    nextTick(() => {
+      confirmPay()
+    })
+
+  }
 
   onMounted(() => {
-    if (couponList.value.length == 0) {
-      couponStore.getCoupon()
+    if (myCouponList.value.length == 0) {
+      couponStore.getMyCouponList()
     } else {
       couponStore.$reset()
-      couponStore.getCoupon()
+      couponStore.getMyCouponList()
     }
 
     if (addressPiniaList.value.length == 0) {
@@ -204,7 +212,6 @@
       addressStore.$reset()
       addressStore.getAddress()
     }
-    getToken()
   })
 </script>
 
