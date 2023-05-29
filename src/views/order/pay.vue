@@ -27,7 +27,7 @@
         <van-coupon-list :coupons="coupons" :chosen-coupon="chosenCoupon" @change="onChange" />
       </van-popup>
     </div>
-    <div class="pay-test" v-html=htmlData>
+    <div class="pay-test" v-html=htmlData ref="payRef">
     </div>
     <van-submit-bar :price=totalPrice button-text="提交订单" @submit="onSubmit" />
   </div>
@@ -36,6 +36,7 @@
 <script >
   import { defineComponent } from 'vue';
   import { onMounted } from 'vue';
+  import { nextTick } from 'vue';
   export default defineComponent({
     // 离开下单页时将pinia中的状态重置
     beforeRouteLeave (to, from, next) {
@@ -153,6 +154,7 @@
   }
   //提交订单
   const htmlData = ref('')
+  const payRef = ref()
   const onSubmit = () => {
     getOrderConfirm(
       {
@@ -161,17 +163,22 @@
         pay_type: "ALIPAY",
         client_type: "H5",
         address_id: chosenAddressId.value,
-        total_price: tmpPrice,
-        real_price: totalPrice.value,
+        total_price: tmpPrice / 100,
+        real_price: totalPrice.value / 100,
         token: orderToken.value,
         order_way: orderWay,
-        buy_num: "2"
+        buy_num: orderList.value.length
       },
       (status, res, data) => {
         console.log('status: ', status)
         console.log('res: ', res)
         console.log('data: ', data)
         htmlData.value = data
+        // document.forms[0].submit();
+        nextTick(() => {
+          payRef.value.children[0].submit();
+          console.log("payRef", payRef.value);
+        })
 
       },
       (status, error, msg) => {
