@@ -37,7 +37,7 @@
     getOrderInfo(
       {
         page: 1,
-        size: 10,
+        size: 50,
         // state: 'Pay'
       },
       (status, res, data) => {
@@ -48,13 +48,14 @@
         if (data.code == '0') {
           console.log("获取订单信息成功");
           // orderData.value = data.data.current_data
-          // console.log("data.data.current_data", data.data.current_data);
+          console.log("data.data.current_data", data.data.current_data);
           data.data.current_data.forEach(item => {
             // console.log(item);
             if (item.id == orderId) {
               orderData.value = item
             }
           })
+          console.log("orderData.value", orderData.value);
           addressData.value = JSON.parse(orderData.value.receiver_address)
           addressInfo.value = `${addressData.value
             .province} ${addressData.value.city} ${addressData.value.region} ${addressData.value.detailAddress}`

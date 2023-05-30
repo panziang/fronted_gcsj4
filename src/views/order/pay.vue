@@ -176,8 +176,8 @@
         htmlData.value = data
         // document.forms[0].submit();
         nextTick(() => {
-          payRef.value.children[0].submit();
-          // console.log("payRef", payRef.value);
+          payRef.value?.children[0]?.submit();
+
         })
 
       },
@@ -192,9 +192,11 @@
   const onSubmit = () => {
     getToken()
 
-    nextTick(() => {
+    setTimeout(() => {
       confirmPay()
-    })
+    }, 1000)
+
+
 
   }
 

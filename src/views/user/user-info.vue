@@ -107,7 +107,7 @@
   }
   //优惠券模块
   const couponStore = useCouponStore()
-  const { couponList, couponNum } = storeToRefs(couponStore)
+  const { myCouponList, couponNum } = storeToRefs(couponStore)
 
   const cartStore = useCartStore()
   const { cartNum } = storeToRefs(cartStore)
@@ -183,14 +183,9 @@
     if (localStorage.getItem('1024token')) {
       isLogin.value = true
     }
+    couponStore.$reset()
+    couponStore.getMyCouponList()
 
-    if (couponList.value.length == 0) {
-      couponStore.getCoupon()
-
-    } else {
-      couponStore.$reset()
-      couponStore.getCoupon()
-    }
     cartStore.getCartList()
 
     getUserInfo()
