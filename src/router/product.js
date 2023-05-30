@@ -17,4 +17,8 @@ export default [
       hideTabBar: true
     }
   },
+  {
+    path: "/product-search/:keyword",
+    component: () => import("@/views/product/product-search.vue")
+  },
 ]

@@ -42,6 +42,12 @@ export function clearCart (param, successResponse, errorResponse) {
   requestGet('/api/cart/v1/clear', param, apiBaseURL, successResponse, errorResponse)
 }
 
+//搜索商品
+export function searchProduct (param, successResponse, errorResponse) {
+  requestGet('/api/product/v1/search', param, apiBaseURL, successResponse, errorResponse)
+}
+
+
 
 
 
