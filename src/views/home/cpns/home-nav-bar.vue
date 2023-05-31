@@ -1,7 +1,7 @@
 <template>
   <div class="nav-bar">
     <!-- <div class="title">1024shop</div> -->
-    <van-search v-model="searchVal" placeholder="请输入搜索关键词" show-action shape="round" @search="onSearch">
+    <van-search v-model="searchVal" placeholder="请输入搜索关键词" show-action @search="onSearch">
       <template #action>
         <div @click="onClickButton">搜索</div>
       </template>
@@ -30,6 +30,7 @@
     searchStore.getSearch(searchVal.value)
     router.push('/product-search/' + searchVal.value)
   }
+
 </script>
 
 <style lang="less" scoped>
@@ -41,10 +42,15 @@
   border-bottom: 1px solid #f2f2f2;
   padding-bottom: 10px;
 
-  .title {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--primary-color);
+  .van-search {
+    // border: 1px solid red;
+    padding-right: 20px;
+
+    :deep(.van-search__action) {
+      // border: 1px solid red;
+      margin-left: 10px;
+    }
   }
+
 }
 </style>

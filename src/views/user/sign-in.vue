@@ -1,6 +1,6 @@
 <template>
   <div class="sign-in">
-    <home-nav-bar />
+    <!-- <home-nav-bar /> -->
     <h2>登录</h2>
     <div class="form-content">
       <van-form @submit="onSubmit">

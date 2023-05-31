@@ -4,7 +4,8 @@ import { searchProduct } from '@/request/product'
 const useSearchStore = defineStore("search", {
   state: () => ({
     searchList: [],
-    searchCount: 0
+    searchCount: 0,
+    isEmpty: true
   }),
   actions: {
     getSearch (val) {
@@ -19,9 +20,14 @@ const useSearchStore = defineStore("search", {
           // console.log('res: ', res)
           // console.log('data: ', data)
           if (data.code == '0') {
-            console.log("data", data.data);
+            // console.log("data", data.data);
             this.searchList = data.data.current_data
             this.searchCount = data.data.total_record
+            if (data.data.total_record != 0) {
+              this.isEmpty = false
+            } else {
+              this.isEmpty = true
+            }
           } else {
             console.log("搜索失败");
           }

@@ -1,16 +1,21 @@
 <template>
   <div class="product-search">
-    <van-search v-model="searchVal" placeholder="请输入搜索关键词" show-action shape="round" @search="onSearch">
+    <van-search v-model="searchVal" placeholder="请输入搜索关键词" show-action @search="onSearch">
       <template #action>
         <div @click="onClickButton">搜索</div>
       </template>
     </van-search>
+    <div class="search-content">
+      <van-swipe-cell v-for="item in searchList" :key="item.id" v-if="!isEmpty">
+        <van-card :price=item.price :title=item.title class="goods-card" :thumb=item.cover_img
+          @click="productClick(item)">
 
-    <van-swipe-cell v-for="item in searchList" :key="item.id">
-      <van-card :price=item.price :title=item.title class="goods-card" :thumb=item.cover_img @click="productClick(item)">
+        </van-card>
+      </van-swipe-cell>
 
-      </van-card>
-    </van-swipe-cell>
+      <van-empty description="查询为空" v-if="isEmpty" />
+    </div>
+
   </div>
 </template>
 
@@ -25,7 +30,7 @@
   const router = useRouter()
   const searchVal = ref('')
   const searchStore = useSearchStore()
-  const { searchList, searchCount } = storeToRefs(searchStore)
+  const { searchList, searchCount, isEmpty } = storeToRefs(searchStore)
 
   const productClick = (item) => {
     router.push('/product-detail/' + item.id)
@@ -36,8 +41,10 @@
       console.log("val", val);
       searchStore.getSearch(val)
       router.push('/product-search/' + val)
+      console.log("searchCount", searchCount.value);
     } else {
       console.log("123");
+      isEmpty.value = true
     }
 
   }
@@ -48,11 +55,13 @@
       router.push('/product-search/' + searchVal.value)
     } else {
       console.log("123");
+      isEmpty.value = true
     }
   }
 
   onMounted(() => {
     searchVal.value = route.params.keyword
+    searchStore.getSearch(searchVal.value)
   })
 </script>
 

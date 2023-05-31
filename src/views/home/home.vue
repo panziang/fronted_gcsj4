@@ -9,9 +9,9 @@
 
       </van-swipe>
     </div>
-    <div class="search-bar" v-show="isShowSearchBar">
+    <!-- <div class="search-bar" v-show="isShowSearchBar">
       <search-bar />
-    </div>
+    </div> -->
     <home-content />
   </div>
 </template>
