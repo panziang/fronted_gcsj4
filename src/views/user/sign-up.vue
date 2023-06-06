@@ -1,6 +1,7 @@
 <template>
   <div class="sign-up">
     <!-- <home-nav-bar /> -->
+    <van-nav-bar title="用户注册" />
     <div class="form-content">
       <van-form @submit="onSubmit">
         <van-field name="uploader" label="头像上传" :rules="[{ required: true, message: '请上传头像' }]">
@@ -136,6 +137,7 @@
         console.log('status: ', status)
         console.log('res: ', res)
         console.log('data: ', data)
+        Toast.success('发送成功')
 
       },
       (status, error, msg) => {

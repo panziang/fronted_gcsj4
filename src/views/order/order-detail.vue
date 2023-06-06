@@ -6,7 +6,10 @@
         <van-card :num=item.buy_num :price=item.total_price :title=item.product_name :thumb=item.product_img />
       </template>
     </div>
+    <div class="pay-test" v-html=htmlData ref="payRef">
+    </div>
     <van-cell-group inset>
+      <van-button type="danger" round v-if="orderData.state == 'NEW'" @click="repayClick()">立即支付</van-button>
       <van-cell title="商品总价" :value=orderData.total_price size="large" />
       <van-cell title="实付款" :value=orderData.pay_price size="large" />
       <van-cell title="付款方式" :value=orderData.pay_type size="large" />
@@ -19,8 +22,8 @@
 
 <script setup>
   import { useRoute, useRouter } from 'vue-router';
-  import { getOrderInfo } from '@/request/order'
-  import { onMounted, ref } from 'vue';
+  import { getOrderInfo, getOrderRepay } from '@/request/order'
+  import { onMounted, ref, nextTick } from 'vue';
 
   const route = useRoute()
   const router = useRouter()
@@ -72,6 +75,37 @@
         console.log('error: ', error)
         console.log('msg: ', msg)
         console.log("获取购物车信息失败");
+      }
+    )
+  }
+
+  const htmlData = ref('')
+  const payRef = ref()
+  const repayClick = () => {
+    getOrderRepay(
+      {
+        pay_type: "ALIPAY",
+        client_type: "H5",
+        out_trade_no: orderData.value.out_trade_no
+      },
+      (status, res, data) => {
+        console.log('status: ', status)
+        console.log('res: ', res)
+        console.log('data: ', data)
+        console.log("二次支付成功");
+        htmlData.value = data
+        nextTick(() => {
+          console.log("payRef.value?.children[0]", payRef.value?.children[0]);
+          payRef.value?.children[0]?.submit();
+        })
+
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("二次支付失败2");
       }
     )
   }

@@ -139,6 +139,7 @@
         if (data.code == '0') {
           orderToken.value = data.data
           console.log("获取成功");
+          confirmPay()
         } else {
           console.log("获取失败");
         }
@@ -177,7 +178,6 @@
         // document.forms[0].submit();
         nextTick(() => {
           payRef.value?.children[0]?.submit();
-
         })
 
       },
@@ -191,12 +191,6 @@
   }
   const onSubmit = () => {
     getToken()
-
-    setTimeout(() => {
-      confirmPay()
-    }, 1000)
-
-
 
   }
 

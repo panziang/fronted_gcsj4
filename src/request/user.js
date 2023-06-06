@@ -21,7 +21,6 @@ const apiBaseURL = '/user-server'
 //获取图形验证码
 export function sendKaptcha (param, successResponse, errorResponse) {
   requestGet('/api/notify/v1/get_kaptcha', param, apiBaseURL, successResponse, errorResponse)
-
 }
 
 //上传用户头像

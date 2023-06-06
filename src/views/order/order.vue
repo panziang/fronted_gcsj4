@@ -12,9 +12,21 @@
               <van-button square text="删除" type="danger" class="delete-button" />
             </template>
           </van-swipe-cell>
+          <van-empty description="暂无订单" v-if="orderData.length == 0">
+          </van-empty>
         </van-tab>
-
-        <van-tab title="失效订单">
+        <van-tab title="未支付订单">
+          <van-swipe-cell v-for="item in orderNewData" :key="item.id">
+            <van-card num="1" :price=item?.pay_price :title=item?.order_item_list[0]?.product_name class="goods-card"
+              :thumb=item?.order_item_list[0]?.product_img @click="orderClick(item)" />
+            <template #right>
+              <van-button square text="删除" type="danger" class="delete-button" />
+            </template>
+          </van-swipe-cell>
+          <van-empty description="暂无订单" v-if="orderNewData.length == 0">
+          </van-empty>
+        </van-tab>
+        <van-tab title="已失效订单">
           <van-swipe-cell v-for="item in orderCancelData" :key="item.id">
             <van-card num="1" :price=item?.pay_price :title=item?.order_item_list[0]?.product_name class="goods-card"
               :thumb=item?.order_item_list[0]?.product_img @click="orderClick(item)" />
@@ -22,12 +34,12 @@
               <van-button square text="删除" type="danger" class="delete-button" />
             </template>
           </van-swipe-cell>
+          <van-empty description="暂无订单" v-if="orderCancelData.length == 0">
+          </van-empty>
         </van-tab>
       </van-tabs>
 
     </div>
-    <van-empty description="暂无订单" v-if="orderData.length == 0">
-    </van-empty>
     <van-empty description="暂未登录" v-if="!isLogin">
       <van-button round type="danger" class="bottom-button" @click="signInClick">登录</van-button>
     </van-empty>
@@ -121,12 +133,45 @@
     )
   }
 
+  const orderNewData = ref([])
+  const getNewOrder = (state) => {
+    getOrderInfo(
+      {
+        page: 1,
+        size: 10,
+        state: state
+      },
+      (status, res, data) => {
+        // console.log('status: ', status)
+        // console.log('res: ', res)
+        // console.log('data: ', data)
+
+        if (data.code == '0') {
+          // console.log("获取订单信息成功");
+          orderNewData.value = data.data.current_data
+          // console.log("orderData", orderData.value);
+
+        } else {
+          console.log("获取订单信息失败");
+        }
+
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("获取购物车信息失败");
+      }
+    )
+  }
+
   onMounted(() => {
     if (localStorage.getItem('1024token')) {
       isLogin.value = true
     }
     getOrder('PAY')
     getCancelOrder('CANCEL')
+    getNewOrder('NEW')
   })
 </script>
 

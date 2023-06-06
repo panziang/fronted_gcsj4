@@ -31,6 +31,12 @@ export function getOrderConfirm (param, successResponse, errorResponse) {
   requestPost('/api/order/v1/confirm', param, apiBaseURL, successResponse, errorResponse)
 }
 
+//订单二次支付
+export function getOrderRepay (param, successResponse, errorResponse) {
+  requestPost('/api/order/v1/repay', param, apiBaseURL, successResponse, errorResponse)
+}
+
+
 
 
 
