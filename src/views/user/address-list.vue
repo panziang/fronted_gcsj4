@@ -31,9 +31,12 @@
 
 
   const onAdd = () => {
-    router.push('/address-edit')
+    router.push('/address-new')
   }
-  const onEdit = (item, index) => Toast('编辑地址:' + index);
+  const onEdit = (item, index) => {
+    // console.log("item, index", item.id, index);
+    router.push('/address-edit/' + item.id)
+  }
 
   onMounted(() => {
     if (addressPiniaList.value.length == 0) {

@@ -40,10 +40,14 @@ export function getUserDetail (param, successResponse, errorResponse) {
 }
 
 
-
 // 注册
 export function getSignUp (param, successResponse, errorResponse) {
   requestPost('/api/user/v1/register', param, apiBaseURL, successResponse, errorResponse)
+}
+
+// 修改用户信息
+export function editUserInfo (param, successResponse, errorResponse) {
+  requestPost('/api/user/v1/update', param, apiBaseURL, successResponse, errorResponse)
 }
 
 // 邮箱、手机号验证码发送
@@ -65,6 +69,12 @@ export function getNewAddress (param, successResponse, errorResponse) {
 export function getAddressList (param, successResponse, errorResponse) {
   requestGet('/api/address/v1/list', param, apiBaseURL, successResponse, errorResponse)
 }
+
+// 修改收货地址
+export function editAddressInfo (param, successResponse, errorResponse) {
+  requestPost('/api/address/v1/update', param, apiBaseURL, successResponse, errorResponse)
+}
+
 
 
 

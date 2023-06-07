@@ -10,7 +10,7 @@
           <p>个性签名：{{ userInfo.slogan }}</p>
         </span>
       </div>
-      <div class="edit">
+      <div class="edit" @click="editClick()">
         <van-icon name="edit" />
         编辑
       </div>
@@ -46,7 +46,7 @@
           <van-cell title="性别" :value=userInfo.sex is-link />
           <van-cell title="邮箱" :value=userInfo.mail is-link />
           <van-cell title="个性签名" :value=userInfo.slogan is-link />
-          <van-cell title="密码" is-link />
+          <!-- <van-cell title="密码" is-link /> -->
         </van-cell-group>
         <van-cell-group title="其他信息">
           <van-cell title="地址信息" icon="location-o" is-link @click="addressClick" />
@@ -91,6 +91,10 @@
     router.push('/order')
   }
 
+  const editClick = () => {
+    router.push('/user-edit')
+  }
+
   const userInfo = reactive({
     head_img: '',
     name: '',
@@ -133,7 +137,7 @@
           userInfo.head_img = data.data.head_img
           userInfo.name = data.data.name
           userInfo.slogan = data.data.slogan
-          userInfo.sex = data.data.sex == 1 ? '男' : '女'
+          userInfo.sex = data.data.sex == 0 ? '男' : '女'
           userInfo.mail = data.data.mail
 
         } else {

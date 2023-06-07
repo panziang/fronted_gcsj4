@@ -28,7 +28,15 @@ export default [
     component: () => import("@/views/user/address-list.vue")
   },
   {
-    path: "/address-edit",
+    path: "/address-edit/:aid",
     component: () => import("@/views/user/address-edit.vue")
   },
+  {
+    path: "/address-new",
+    component: () => import("@/views/user/address-new.vue")
+  },
+  {
+    path: "/user-edit",
+    component: () => import("@/views/user/user-edit.vue")
+  }
 ]
