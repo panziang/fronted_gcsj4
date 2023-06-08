@@ -3,7 +3,7 @@
     <home-nav-bar />
     <div class="banner">
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="item in swpierData" :key="item.id">
+        <van-swipe-item v-for="item in swpierData" :key="item.id" @click="swipeClick(item)">
           <img :src="item.img" alt="">
         </van-swipe-item>
 
@@ -55,6 +55,7 @@
   const homeRef = ref()
   const { isReachBottom, scrollTop } = useScroll(homeRef)
 
+  //轮播图
   const swpierData = ref([])
   const router = useRouter()
   const getSwiper = () => {
@@ -77,6 +78,11 @@
       }
     )
   }
+  const swipeClick = (item) => {
+    // console.log("product_id", item.product_id);
+    router.push("/product-detail/" + item.product_id)
+  }
+
   const productClick = (item) => {
     // console.log(item.houseId);
     router.push("/product-detail/" + item.id)
@@ -132,24 +138,24 @@
     }
   })
 
-                                                    //监听滚动距离的变化，控制显示搜索框
-                                                    //方法一：watch
-                                                    // const isShowSearchBar = ref(false)
-                                                    // watch(scrollTop, (newTop) => {
-                                                    //   isShowSearchBar.value = newTop > 100
-                                                    // })
+                                                                //监听滚动距离的变化，控制显示搜索框
+                                                                //方法一：watch
+                                                                // const isShowSearchBar = ref(false)
+                                                                // watch(scrollTop, (newTop) => {
+                                                                //   isShowSearchBar.value = newTop > 100
+                                                                // })
 
-                                                    //方法二：computed
-                                                    // const isShowSearchBar = computed(() => {
-                                                    //   return scrollTop.value >= 360
-                                                    // })
+                                                                //方法二：computed
+                                                                // const isShowSearchBar = computed(() => {
+                                                                //   return scrollTop.value >= 360
+                                                                // })
 
-                                                    //跳转回home时，保留原来的位置
-                                                    // onActivated(() => {
-                                                    //   homeRef.value?.scrollTo({
-                                                    //     top: scrollTop.value
-                                                    //   })
-                                                    // })
+                                                                //跳转回home时，保留原来的位置
+                                                                // onActivated(() => {
+                                                                //   homeRef.value?.scrollTo({
+                                                                //     top: scrollTop.value
+                                                                //   })
+                                                                // })
 </script>
 
 <style lang="less" scoped>

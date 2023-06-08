@@ -3,7 +3,10 @@
   <div class="user-info" v-if="isLogin">
     <!-- <h2>user-info</h2> -->
     <div class="header">
-      <van-image round width="4rem" height="4rem" fit="cover" :src=userInfo.head_img />
+
+      <van-uploader :after-read="afterRead">
+        <van-image round width="4rem" height="4rem" fit="cover" :src=userInfo.head_img />
+      </van-uploader>
       <div class="info-content">
         <h2>{{ userInfo.name }}</h2>
         <span>
@@ -66,7 +69,7 @@
 <script setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router';
-  import { getUserDetail, getSignOut } from '@/request/user'
+  import { getUserDetail, getSignOut, changeAvatar } from '@/request/user'
   import { onMounted } from 'vue';
   import { reactive } from 'vue';
   import useCouponStore from '@/store/modules/coupon'
@@ -182,6 +185,31 @@
       }
     )
   }
+
+  //上传头像
+  const afterRead = (myFile) => {
+    // fileList.value.push(myFile)
+    // 此时可以自行将文件上传至服务器
+    console.log("file", myFile)
+    changeAvatar(
+      {
+        file: myFile.file
+      },
+      (status, res, data) => {
+        console.log('status: ', status)
+        console.log('res: ', res)
+        console.log('data: ', data)
+        userInfo.head_img = data.data
+        location.reload()
+      },
+      (status, error, msg) => {
+        console.log('status: ', status)
+        console.log('error: ', error)
+        console.log('msg: ', msg)
+        console.log("发送失败");
+      }
+    )
+  };
 
   onMounted(() => {
     if (localStorage.getItem('1024token')) {

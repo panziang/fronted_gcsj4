@@ -57,7 +57,6 @@
 
 <script setup>
   import { useRouter } from 'vue-router';
-  import homeNavBar from '../home/cpns/home-nav-bar.vue';
   import { ref } from 'vue';
   import { sendKaptcha, getAvatar, getSignUp, getSignCode } from '../../request/user'
   import { Toast } from 'vant';
@@ -147,7 +146,6 @@
         console.log("发送失败");
       }
     )
-
   }
 
   //发送注册请求

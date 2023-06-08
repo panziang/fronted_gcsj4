@@ -28,6 +28,13 @@ export function getAvatar (param, successResponse, errorResponse) {
   requestUpload('/api/user/v1/upload_headImg', param, apiBaseURL, successResponse, errorResponse)
 }
 
+//用户更改头像
+export function changeAvatar (param, successResponse, errorResponse) {
+  requestUpload('/api/user/v1/update_img', param, apiBaseURL, successResponse, errorResponse)
+}
+
+
+
 
 //密码登录
 export function getSignInByPwd (param, successResponse, errorResponse) {

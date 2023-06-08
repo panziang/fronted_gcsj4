@@ -274,7 +274,8 @@ const requestUpload = (url, param, baseURL, successResponse, errorResponse) => {
     baseURL: baseURL,
     headers: {
       'Content-Type': 'multipart/form-data',
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      'token': localStorage.getItem("1024token") || "",
     }
   }
 
