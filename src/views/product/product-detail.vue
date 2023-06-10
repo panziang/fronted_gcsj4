@@ -22,7 +22,6 @@
       </div>
     </div>
     <van-action-bar placeholder>
-      <van-action-bar-icon icon="chat-o" text="客服" @click="onClickIcon" />
       <van-action-bar-icon icon="cart-o" text="购物车" @click="onClickCart" />
       <van-action-bar-button type="warning" text="加入购物车" @click="addProduct()" />
       <van-action-bar-button type="danger" text="立即购买" @click="payClick" />
@@ -45,7 +44,6 @@
   const onClickLeft = () => {
     history.back();
   }
-  const onClickIcon = () => Toast('点击图标');
   const onClickCart = () => {
     router.push('/cart')
   }
@@ -77,12 +75,11 @@
         console.log('data: ', data)
 
         if (data.code == '0') {
-          // PromptMessage.messageSuccess('登录成功')
           console.log("获取商品信息成功");
           productData.value = data.data
 
         } else {
-          // PromptMessage.messageBoxError('登录失败', data.msg)
+          Toast.fail("获取商品信息失败 " + data.msg)
           console.log("获取商品信息失败");
         }
 
@@ -92,6 +89,7 @@
         console.log('error: ', error)
         console.log('msg: ', msg)
         console.log("获取商品信息失败");
+        Toast.fail("获取商品信息失败 " + msg)
       }
     )
   }
@@ -111,6 +109,7 @@
           console.log("添加成功");
           Toast.success('添加成功');
         } else {
+          Toast.fail("添加失败 " + data.msg)
           console.log("添加失败");
         }
       },
@@ -119,6 +118,7 @@
         console.log('error: ', error)
         console.log('msg: ', msg)
         console.log("添加失败");
+        Toast.fail("添加失败 " + msg)
       }
     )
   }

@@ -75,6 +75,7 @@
   import useCouponStore from '@/store/modules/coupon'
   import useCartStore from '@/store/modules/cart';
   import { storeToRefs } from 'pinia';
+  import { Toast } from 'vant';
 
   const router = useRouter()
 
@@ -168,12 +169,20 @@
         if (data.code == '0') {
           // PromptMessage.messageSuccess('登录成功')
           console.log("成功登出");
+          Toast.success("成功登出")
           localStorage.removeItem('1024token')
-          router.push('/sign-in')
+          setTimeout(() => {
+            router.push('/sign-in')
+          }, 1000)
 
         } else {
+          Toast.fail("登出失败 " + data.msg)
           // PromptMessage.messageBoxError('登录失败', data.msg)
           console.log("登出失败");
+          localStorage.removeItem('1024token')
+          setTimeout(() => {
+            router.push('/sign-in')
+          }, 1000)
         }
 
       },

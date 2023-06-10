@@ -24,6 +24,7 @@
   import { useRoute, useRouter } from 'vue-router';
   import { getOrderInfo, getOrderRepay } from '@/request/order'
   import { onMounted, ref, nextTick } from 'vue';
+  import { Toast } from 'vant';
 
   const route = useRoute()
   const router = useRouter()
@@ -66,6 +67,7 @@
           // console.log("orderData", orderData.value);
 
         } else {
+          Toast.fail("获取订单信息失败 " + data.msg)
           console.log("获取订单信息失败");
         }
 

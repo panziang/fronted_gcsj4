@@ -1,7 +1,7 @@
 <template>
   <div class="address-list">
     <van-nav-bar title="编辑地址" left-text="返回" left-arrow @click-left="onClickLeft" />
-    <van-address-edit :area-list="areaList" :show-postal=false show-delete show-set-default show-search-result
+    <van-address-edit :area-list="areaList" :show-postal=false :show-delete=false show-set-default show-search-result
       :search-result="searchResult" :area-columns-placeholder="['请选择', '请选择', '请选择']" @save="onSave" @delete="onDelete"
       :address-info=addressInfo />
   </div>
@@ -30,17 +30,17 @@
   const onClickLeft = () => {
     router.back()
   }
-  const info = reactive({
-    name: '',
-    tel: '',
-    province: '',
-    city: '',
-    county: '',
-    addressDetail: '',
-    areaCode: '',
-    postalCode: '',
-    isDefault: '',
-  })
+  // const info = reactive({
+  //   name: '',
+  //   tel: '',
+  //   province: '',
+  //   city: '',
+  //   county: '',
+  //   addressDetail: '',
+  //   areaCode: '',
+  //   postalCode: '',
+  //   isDefault: '',
+  // })
 
   const onSave = (content) => {
     console.log("content", content);
@@ -79,10 +79,11 @@
         console.log('error: ', error)
         console.log('msg: ', msg)
         console.log("修改地址失败");
+        Toast.fail('修改失败');
       }
     )
   };
-  const onDelete = () => Toast('delete');
+  // const onDelete = () => Toast('delete');
 
   onMounted(() => {
     const addressId = route.params.aid

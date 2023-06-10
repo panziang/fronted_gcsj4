@@ -51,6 +51,7 @@
   import { useRouter } from 'vue-router'
   import { getOrderInfo } from '@/request/order'
   import { ref } from 'vue'
+  import { Toast } from 'vant';
 
   const active = ref(0);
   const router = useRouter()
@@ -88,6 +89,7 @@
           // console.log("orderData", orderData.value);
 
         } else {
+          Toast.fail("获取订单信息失败 " + data.msg)
           console.log("获取订单信息失败");
         }
 
@@ -120,6 +122,7 @@
           // console.log("orderData", orderData.value);
 
         } else {
+          Toast.fail("获取订单信息失败 " + data.msg)
           console.log("获取订单信息失败");
         }
 
@@ -152,6 +155,7 @@
           // console.log("orderData", orderData.value);
 
         } else {
+          Toast.fail("获取订单信息失败 " + data.msg)
           console.log("获取订单信息失败");
         }
 

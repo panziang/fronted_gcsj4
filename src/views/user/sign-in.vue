@@ -30,6 +30,7 @@
   import homeNavBar from '../home/cpns/home-nav-bar.vue';
   import { ref } from 'vue';
   import { getSignInByPwd } from '../../request/user'
+  import { Toast } from 'vant';
 
   const email = ref('');
   const password = ref('');
@@ -63,6 +64,7 @@
           router.push('/home')
 
         } else {
+          Toast.fail("登录失败 " + data.msg)
           // PromptMessage.messageBoxError('登录失败', data.msg)
           console.log("登录失败");
         }
@@ -73,6 +75,7 @@
         console.log('error: ', error)
         console.log('msg: ', msg)
         console.log("登录失败");
+        Toast.fail("登录失败 " + msg)
       }
     )
   };

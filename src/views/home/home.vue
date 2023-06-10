@@ -50,6 +50,7 @@
   import { getSwiperList, getProductList } from '@/request/home'
   import { onMounted } from 'vue';
   import { useRouter } from 'vue-router';
+  import { Toast } from 'vant';
 
 
   const homeRef = ref()
@@ -109,7 +110,7 @@
           isReachBottom.value = false
 
         } else {
-          // PromptMessage.messageBoxError('登录失败', data.msg)
+          Toast.fail("获取商品信息失败 " + data.msg)
           console.log("获取商品信息失败");
         }
 
@@ -138,24 +139,24 @@
     }
   })
 
-                                                                //监听滚动距离的变化，控制显示搜索框
-                                                                //方法一：watch
-                                                                // const isShowSearchBar = ref(false)
-                                                                // watch(scrollTop, (newTop) => {
-                                                                //   isShowSearchBar.value = newTop > 100
-                                                                // })
+                                                                    //监听滚动距离的变化，控制显示搜索框
+                                                                    //方法一：watch
+                                                                    // const isShowSearchBar = ref(false)
+                                                                    // watch(scrollTop, (newTop) => {
+                                                                    //   isShowSearchBar.value = newTop > 100
+                                                                    // })
 
-                                                                //方法二：computed
-                                                                // const isShowSearchBar = computed(() => {
-                                                                //   return scrollTop.value >= 360
-                                                                // })
+                                                                    //方法二：computed
+                                                                    // const isShowSearchBar = computed(() => {
+                                                                    //   return scrollTop.value >= 360
+                                                                    // })
 
-                                                                //跳转回home时，保留原来的位置
-                                                                // onActivated(() => {
-                                                                //   homeRef.value?.scrollTo({
-                                                                //     top: scrollTop.value
-                                                                //   })
-                                                                // })
+                                                                    //跳转回home时，保留原来的位置
+                                                                    // onActivated(() => {
+                                                                    //   homeRef.value?.scrollTo({
+                                                                    //     top: scrollTop.value
+                                                                    //   })
+                                                                    // })
 </script>
 
 <style lang="less" scoped>

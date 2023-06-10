@@ -96,7 +96,9 @@
     showAddressList.value = true
 
   }
-  const onAdd = () => Toast('新增地址');
+  const onAdd = () => {
+    router.push('/address-new')
+  }
 
   const onSelect = (item, index) => {
     console.log("item", item, "index", index);

@@ -74,7 +74,7 @@
           console.log("userInfo", userInfo);
 
         } else {
-          // PromptMessage.messageBoxError('登录失败', data.msg)
+          Toast.fail('获取用户信息失败 ' + data.msg)
           console.log("获取用户信息失败");
         }
 
@@ -83,7 +83,8 @@
         console.log('status: ', status)
         console.log('error: ', error)
         console.log('msg: ', msg)
-        console.log("登录失败");
+        console.log("获取用户信息失败");
+        Toast.fail('获取用户信息失败 ' + msg)
       }
     )
   }

@@ -93,7 +93,13 @@
         console.log('status: ', status)
         console.log('res: ', res)
         console.log('data: ', data)
-        head_img.value = data.data
+
+        if (data.code == '0') {
+          head_img.value = data.data
+          Toast.success('上传成功')
+        } else {
+          Toast.fail('上传失败 ' + data.msg);
+        }
 
       },
       (status, error, msg) => {
@@ -136,7 +142,12 @@
         console.log('status: ', status)
         console.log('res: ', res)
         console.log('data: ', data)
-        Toast.success('发送成功')
+        if (data.code == '0') {
+          Toast.success('发送成功')
+        } else {
+          Toast.fail('发送失败 ' + data.msg);
+        }
+
 
       },
       (status, error, msg) => {
@@ -144,6 +155,7 @@
         console.log('error: ', error)
         console.log('msg: ', msg)
         console.log("发送失败");
+        Toast.fail('发送失败', msg)
       }
     )
   }
@@ -167,6 +179,8 @@
         // console.log("注册成功");
         if (data.code == '0') {
           Toast.success('注册成功');
+        } else {
+          Toast.fail('注册失败 ' + data.msg);
         }
 
       },
@@ -174,7 +188,8 @@
         console.log('status: ', status)
         console.log('error: ', error)
         console.log('msg: ', msg)
-        console.log("发送失败");
+        console.log("注册失败");
+        Toast.fail('注册失败 ' + msg);
       }
     )
   }
