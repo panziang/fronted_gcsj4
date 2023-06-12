@@ -11,6 +11,7 @@
     <van-cell-group inset>
       <van-button type="danger" round v-if="orderData.state == 'NEW'" @click="repayClick()">立即支付</van-button>
       <van-cell title="商品总价" :value=orderData.total_price size="large" />
+      <van-cell title="优惠券" :value=orderData.coupon_record size="large" />
       <van-cell title="实付款" :value=orderData.pay_price size="large" />
       <van-cell title="付款方式" :value=orderData.pay_type size="large" />
       <van-cell title="收货人信息" :value=addressData.receiveName size="large" />
@@ -65,6 +66,11 @@
             .province} ${addressData.value.city} ${addressData.value.region} ${addressData.value.detailAddress}`
           // console.log("addressData", addressData.value);
           // console.log("orderData", orderData.value);
+          if (!orderData.value.coupon_record) {
+            orderData.value.coupon_record = '未使用'
+          } else {
+            orderData.value.coupon_record = orderData.value.coupon_record.coupon_title
+          }
 
         } else {
           Toast.fail("获取订单信息失败 " + data.msg)

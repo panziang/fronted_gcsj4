@@ -36,6 +36,7 @@
               <van-button size="small" type="primary" @click="getKaptcha">发送验证码</van-button>
             </template></van-field>
           <van-image width="200" height="60" :src=kaptcha />
+
           <van-field v-model="emailCode" name="emailCode" label="邮箱验证码" placeholder="请输入邮箱验证码"
             :rules="[{ required: true, message: '验证码错误' }]">
             <template #button>

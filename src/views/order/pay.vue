@@ -161,7 +161,7 @@
   const confirmPay = () => {
     getOrderConfirm(
       {
-        coupon_id: chosenCouponId.value,
+        coupon_record_id: chosenCouponId.value,
         product_ids: productId.value,
         pay_type: "ALIPAY",
         client_type: "H5",
@@ -176,11 +176,16 @@
         console.log('status: ', status)
         console.log('res: ', res)
         console.log('data: ', data)
-        htmlData.value = data
-        // document.forms[0].submit();
-        nextTick(() => {
-          payRef.value?.children[0]?.submit();
-        })
+        if (data.code == '0') {
+          htmlData.value = data
+          // document.forms[0].submit();
+          nextTick(() => {
+            payRef.value?.children[0]?.submit();
+          })
+        } else {
+          Toast.fail("提交订单失败 " + data.msg)
+        }
+
 
       },
       (status, error, msg) => {

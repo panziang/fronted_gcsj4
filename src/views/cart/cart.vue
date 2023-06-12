@@ -156,8 +156,13 @@
 
 <style lang="less" scoped>
 .cart {
+  // height: 100vh;
+  // overflow-y: auto;
+  // box-sizing: border-box;
+
   .cart-list {
     margin-top: 30px;
+    margin-bottom: 110px;
 
     .van-swipe-cell {
       margin-top: 30px;

@@ -57,7 +57,8 @@ const useCouponStore = defineStore("coupon", {
       getMyCoupon(
         {
           page: 1,
-          size: 10
+          size: 10,
+          use_state: 'NEW'
         },
         (status, res, data) => {
           console.log('status: ', status)

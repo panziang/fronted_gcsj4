@@ -34,8 +34,6 @@ export function changeAvatar (param, successResponse, errorResponse) {
 }
 
 
-
-
 //密码登录
 export function getSignInByPwd (param, successResponse, errorResponse) {
   requestPost('/api/user/v1/login_by_password', param, apiBaseURL, successResponse, errorResponse)
@@ -57,9 +55,18 @@ export function editUserInfo (param, successResponse, errorResponse) {
   requestPost('/api/user/v1/update', param, apiBaseURL, successResponse, errorResponse)
 }
 
-// 邮箱、手机号验证码发送
+// 邮箱、手机号注册验证码发送
 export function getSignCode (param, successResponse, errorResponse) {
   requestGet('/api/notify/v1/get_register_code', param, apiBaseURL, successResponse, errorResponse)
+}
+
+// 登录验证码发送
+export function getLoginCode (param, successResponse, errorResponse) {
+  requestGet('/api/notify/v1/get_login_code', param, apiBaseURL, successResponse, errorResponse)
+}
+//验证码登录
+export function getLoginByCode (param, successResponse, errorResponse) {
+  requestPost('/api/user/v1/login_by_code', param, apiBaseURL, successResponse, errorResponse)
 }
 
 // 退出登录
