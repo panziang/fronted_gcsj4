@@ -3,6 +3,8 @@
     <van-nav-bar title="地址管理" left-text="返回" left-arrow @click-left="onClickLeft" />
     <van-address-list v-model="chosenAddressId" :list="addressPiniaList" default-tag-text="默认" @add="onAdd"
       @edit="onEdit" />
+    <van-empty description="暂无地址信息" v-if="addressPiniaList.length == 0">
+    </van-empty>
   </div>
 </template>
 
