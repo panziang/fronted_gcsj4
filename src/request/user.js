@@ -89,6 +89,11 @@ export function editAddressInfo (param, successResponse, errorResponse) {
   requestPost('/api/address/v1/update', param, apiBaseURL, successResponse, errorResponse)
 }
 
+// 查询收货地址列表
+export function delAddressById (param, successResponse, errorResponse) {
+  requestGet(`api/address/v1/delete/${param.id}`, param, apiBaseURL, successResponse, errorResponse)
+}
+
 
 
 

@@ -34,6 +34,7 @@ const useCouponStore = defineStore("coupon", {
               obj.value.endAt = getResTime(item.end_time)
               obj.value.valueDesc = item.price
               obj.value.unitDesc = '元'
+              obj.value.menkan = item.condition_price
               this.couponList.push(obj.value)
             })
             // this.couponList = data.data.current_data
@@ -78,6 +79,7 @@ const useCouponStore = defineStore("coupon", {
               obj.value.endAt = getResTime(item.end_time)
               obj.value.valueDesc = item.price
               obj.value.unitDesc = '元'
+              obj.value.menkan = item.condition_price
               this.myCouponList.push(obj.value)
             })
             // this.couponList = data.data.current_data

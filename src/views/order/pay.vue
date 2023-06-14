@@ -79,9 +79,11 @@
   console.log("productId", productId.value);
 
   const addressStore = useAddressStore()
-  const { addressPiniaList } = storeToRefs(addressStore)
+  const { addressPiniaList, defaultAddress } = storeToRefs(addressStore)
+
   const couponStore = useCouponStore()
   const { myCouponList } = storeToRefs(couponStore)
+
 
   const totalPrice = ref(0)
   orderList.value.forEach(item => {
@@ -90,8 +92,12 @@
 
   //地址模块
   const showAddressList = ref(false)
-  const chosenAddressId = ref(-1);
-  const chosenAddressData = ref('')
+  const chosenAddressId = ref(defaultAddress.value.id);
+  //选中地址的回调
+  const chosenAddressData = ref(`${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`)
+  // chosenAddressData.value = `${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`
+  // chosenAddressId.value = defaultAddress.value.id
+
   const addressClick = () => {
     showAddressList.value = true
 
@@ -117,15 +123,45 @@
   coupons.value = myCouponList.value
   const showCouponList = ref(false);
   const chosenCoupon = ref(-1);
-  const chosenCouponId = ref(-1);
+  const chosenCouponId = ref(null);
   let tmpPrice = totalPrice.value
+  //优惠券index
+  // const chosenIndex = ref(null)
 
   const onChange = (index) => {
-    showCouponList.value = false;
-    chosenCoupon.value = index;
-    totalPrice.value = tmpPrice - coupons.value[index].value
-    chosenCouponId.value = coupons.value[index].id
-    // console.log(coupons.value[index].id);
+    console.log("coupons.value[index]", coupons.value[index].menkan);
+    console.log("tmpPrice", tmpPrice);
+    if (coupons.value[index].menkan > tmpPrice / 100) {
+      Toast.fail("未达到门槛价格")
+    } else {
+      // console.log("isCouponClick", isCouponClick.value);
+      if (chosenCoupon.value === -1) {
+        chosenCoupon.value = index;
+        totalPrice.value = tmpPrice - coupons.value[index].value
+        chosenCouponId.value = coupons.value[index].id
+        // console.log(coupons.value[index].id);
+        showCouponList.value = false;
+      }
+      else {
+        if (index === chosenCoupon.value) {
+          console.log("123");
+          chosenCoupon.value = -1
+          totalPrice.value = tmpPrice
+          chosenCouponId.value = null
+          showCouponList.value = false;
+        } else {
+          chosenCoupon.value = index;
+          totalPrice.value = tmpPrice - coupons.value[index].value
+          chosenCouponId.value = coupons.value[index].id
+          console.log(coupons.value[index].id);
+          showCouponList.value = false;
+        }
+      }
+    }
+
+
+
+
   };
 
   //获取订单防重令牌
@@ -176,7 +212,7 @@
         console.log('status: ', status)
         console.log('res: ', res)
         console.log('data: ', data)
-        if (data.code == '0') {
+        if (!data.code) {
           htmlData.value = data
           // document.forms[0].submit();
           nextTick(() => {
@@ -204,13 +240,17 @@
   onMounted(() => {
     if (myCouponList.value.length == 0) {
       couponStore.getMyCouponList()
+
     } else {
       couponStore.$reset()
       couponStore.getMyCouponList()
+
     }
 
     if (addressPiniaList.value.length == 0) {
       addressStore.getAddress()
+
+
     } else {
       addressStore.$reset()
       addressStore.getAddress()

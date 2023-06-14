@@ -5,7 +5,8 @@ import { ref } from 'vue'
 const useAddressStore = defineStore("address", {
   state: () => ({
     addressPiniaList: [],
-    addressInfo: {}
+    addressInfo: {},
+    defaultAddress: {}
   }),
   actions: {
     getAddress () {
@@ -26,6 +27,9 @@ const useAddressStore = defineStore("address", {
               obj.value.address = item.province + item.city + item.region + item.detailAddress;
               obj.value.isDefault = (item.defaultStatus === 1) ? true : false;
               this.addressPiniaList.push(obj.value)
+              if (obj.value.isDefault) {
+                this.defaultAddress = obj.value
+              }
             })
             console.log("addressPiniaList", this.addressPiniaList);
           } else {
