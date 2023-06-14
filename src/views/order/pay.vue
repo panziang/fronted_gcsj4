@@ -36,7 +36,6 @@
 <script >
   import { defineComponent } from 'vue';
   import { onMounted } from 'vue';
-  import { nextTick } from 'vue';
   export default defineComponent({
     // 离开下单页时将pinia中的状态重置
     beforeRouteLeave (to, from, next) {
@@ -51,7 +50,7 @@
 </script>
 
 <script setup>
-  import { ref } from 'vue'
+  import { ref, nextTick } from 'vue'
   import { useRouter, useRoute } from 'vue-router';
   import { getOrderConfirm, getOrderToken } from '@/request/order'
   import { Toast } from 'vant';
@@ -92,9 +91,11 @@
 
   //地址模块
   const showAddressList = ref(false)
-  const chosenAddressId = ref(defaultAddress.value.id);
+  // const chosenAddressId = ref(defaultAddress.value.id);
+  const chosenAddressId = ref(null);
+  const chosenAddressData = ref(null)
   //选中地址的回调
-  const chosenAddressData = ref(`${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`)
+  // const chosenAddressData = ref(`${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`)
   // chosenAddressData.value = `${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`
   // chosenAddressId.value = defaultAddress.value.id
 
@@ -240,10 +241,18 @@
   onMounted(() => {
     if (myCouponList.value.length == 0) {
       couponStore.getMyCouponList()
+      setTimeout(() => {
+        chosenAddressData.value = `${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`
+        chosenAddressId.value = defaultAddress.value.id
+      }, 500)
 
     } else {
       couponStore.$reset()
       couponStore.getMyCouponList()
+      setTimeout(() => {
+        chosenAddressData.value = `${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`
+        chosenAddressId.value = defaultAddress.value.id
+      }, 500)
 
     }
 
