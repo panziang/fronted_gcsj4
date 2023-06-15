@@ -5,11 +5,14 @@ import { getResTime } from '@/utils/format_date'
 
 const useCouponStore = defineStore("coupon", {
   state: () => ({
+    //优惠券列表
     couponList: [],
     myCouponList: [],
+    //我的优惠券数量
     couponNum: 0
   }),
   actions: {
+    //获取可领取优惠券列表
     getCoupon () {
       getCouponList(
         {
@@ -54,6 +57,7 @@ const useCouponStore = defineStore("coupon", {
         }
       )
     },
+    //获取我的优惠券列表
     getMyCouponList () {
       getMyCoupon(
         {
