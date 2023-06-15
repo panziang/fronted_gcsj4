@@ -101,11 +101,15 @@
         console.log('res: ', res)
         console.log('data: ', data)
         console.log("二次支付成功");
-        htmlData.value = data
-        nextTick(() => {
-          console.log("payRef.value?.children[0]", payRef.value?.children[0]);
-          payRef.value?.children[0]?.submit();
-        })
+        if (data.code) {
+          Toast.fail("提交订单失败 " + data.msg)
+        } else {
+          htmlData.value = data
+          nextTick(() => {
+            console.log("payRef.value?.children[0]", payRef.value?.children[0]);
+            payRef.value?.children[0]?.submit();
+          })
+        }
 
 
       },

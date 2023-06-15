@@ -94,10 +94,7 @@
   // const chosenAddressId = ref(defaultAddress.value.id);
   const chosenAddressId = ref(null);
   const chosenAddressData = ref(null)
-  //选中地址的回调
-  // const chosenAddressData = ref(`${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`)
-  // chosenAddressData.value = `${defaultAddress.value.name} ${defaultAddress.value.tel} ${defaultAddress.value.address}`
-  // chosenAddressId.value = defaultAddress.value.id
+
 
   const addressClick = () => {
     showAddressList.value = true
@@ -135,10 +132,11 @@
     if (coupons.value[index].menkan > tmpPrice / 100) {
       Toast.fail("未达到门槛价格")
     } else {
-      // console.log("isCouponClick", isCouponClick.value);
+      console.log("coupons.value[index].value", coupons.value[index].value);
+      console.log("coupons.value[index].value", parseInt(coupons.value[index].value));
       if (chosenCoupon.value === -1) {
         chosenCoupon.value = index;
-        totalPrice.value = tmpPrice - coupons.value[index].value
+        totalPrice.value = tmpPrice - parseInt(coupons.value[index].value)
         chosenCouponId.value = coupons.value[index].id
         // console.log(coupons.value[index].id);
         showCouponList.value = false;
