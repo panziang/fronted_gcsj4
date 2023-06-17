@@ -33,7 +33,7 @@
           <van-field v-model="code" name="code" label="验证码" placeholder="请输入验证码"
             :rules="[{ required: true, message: '验证码错误' }]">
             <template #button>
-              <van-button size="small" type="primary" @click="getKaptcha">发送验证码</van-button>
+              <van-button size="small" type="primary" @click="getKaptcha">刷新验证码</van-button>
             </template></van-field>
           <van-image width="200" height="60" :src=kaptcha />
 
@@ -180,6 +180,9 @@
         // console.log("注册成功");
         if (data.code == '0') {
           Toast.success('注册成功');
+          setTimeout(() => {
+            router.push('/sign-in')
+          }, 1000);
         } else {
           Toast.fail('注册失败 ' + data.msg);
         }

@@ -1,14 +1,14 @@
 <template>
-  <div class="address-list">
+  <div class="address-list" style="padding-bottom: 80px;">
     <van-nav-bar title="地址管理" left-text="返回" left-arrow @click-left="onClickLeft" />
     <van-address-list v-model="chosenAddressId" :list="addressPiniaList" default-tag-text="默认" @add="onAdd" @edit="onEdit"
       @select="onSelect">
+      <van-empty description="暂无地址信息" v-if="addressLen == 0">
+      </van-empty>
     </van-address-list>
     <div class="box">
-      <van-button type="danger" round class="delete-button" @click="delClick">删除</van-button>
+      <van-button type="danger" round class="delete-button" @click="delClick" v-if="addressLen !== 0">删除</van-button>
     </div>
-    <van-empty description="暂无地址信息" v-if="addressPiniaList.length == 0">
-    </van-empty>
   </div>
 </template>
 
@@ -25,11 +25,11 @@
   const router = useRouter()
   //监听返回按钮的点击
   const onClickLeft = () => {
-    router.back()
+    router.push('/user')
   }
   //pinia
   const addressStore = useAddressStore()
-  const { addressPiniaList } = storeToRefs(addressStore)
+  const { addressPiniaList, addressLen } = storeToRefs(addressStore)
 
   // const addressList = ref([])
 
@@ -99,6 +99,8 @@
 
 <style lang="less" scoped>
 .address-list {
+  // margin-bottom: 80px;
+
   .van-address-list {
     // border: 1px solid blue;
     height: calc(100vh - 160px);

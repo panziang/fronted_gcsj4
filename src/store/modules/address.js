@@ -6,7 +6,8 @@ const useAddressStore = defineStore("address", {
   state: () => ({
     addressPiniaList: [],
     addressInfo: {},
-    defaultAddress: {}
+    defaultAddress: {},
+    addressLen: 0
   }),
   actions: {
     getAddress () {
@@ -31,6 +32,7 @@ const useAddressStore = defineStore("address", {
                 this.defaultAddress = obj.value
               }
             })
+            this.addressLen = this.addressPiniaList.length
             console.log("addressPiniaList", this.addressPiniaList);
           } else {
             console.log("获取地址失败");
